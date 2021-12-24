@@ -168,3 +168,72 @@ MOV BL, buffer[1]
 MOV buffer[BX+ 2],'$'
 
 
+;-------------------------------------------------------- Encrypting ------------------------------------------
+
+
+; Displays "Encrypted message: " message
+
+LEA DX, encrypted_msg
+
+MOV AH,9
+
+INT 21h
+
+
+
+; The encryption code
+
+MOV DI,3FFh
+
+MOV BX,DI
+
+LEA SI, buffer[2]     
+
+
+
+
+next_char:
+
+CMP [SI],'$' ; Check if reached end of message
+
+JE end_msg
+
+
+
+LODSB ; Loads first char into AL, then moves SI to next char
+
+CMP AL,'a'
+
+JB next_char ; If char is invalid, skip it
+
+CMP AL,'z'
+
+JA next_char
+
+XLATB ; Encrypt   
+
+
+
+
+forspace:
+
+MOV [SI-1],AL
+
+MOV AH,0
+
+CALL PRINT_NUM_UNS ; Using a procedure to print numbers
+
+DEFINE_PRINT_NUM_UNS
+
+
+
+JMP next_char
+
+
+
+;space: mov al,0h
+
+; jmp forspace
+
+
+end_msg:
