@@ -1,3 +1,28 @@
+monoalphapetic:
+
+           
+; print message-output of a string at ds:dx
+LEA    dx,msg1
+MOV    ah,09h
+INT    21h       
+
+
+; read the string
+PUSH   CS
+POP    DS
+LEA    DI,str
+MOV    DX,00FFH
+CALL   GET_STRING   
+
+
+; print message-output of a string at ds:dx
+LEA    dx,n_line
+MOV    ah,09h
+INT    21h                
+           
+                     
+                     
+; ---------------------------------------------------------------------Encryption--------------------------------------------------------------------------------------------
 name "crypt"
 
 include 'emu8086.inc'
