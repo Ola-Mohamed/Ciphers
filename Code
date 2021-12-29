@@ -1,53 +1,4 @@
----------------------------------------------------------------Monoalphapetic Cipher---------------------------------------------------------------
-	
 
-monoalphapetic:
-
-           
-; print message-output of a string at ds:dx
-LEA    dx,msg1
-MOV    ah,09h
-INT    21h       
-
-
-; read the string
-PUSH   CS
-POP    DS
-LEA    DI,str
-MOV    DX,00FFH
-CALL   GET_STRING   
-
-
-; print message-output of a string at ds:dx
-LEA    dx,n_line
-MOV    ah,09h
-INT    21h                <<<<<<< HEAD
-monoalphapetic:
-
-           
-; print message-output of a string at ds:dx
-LEA    dx,msg1
-MOV    ah,09h
-INT    21h       
-
-
-; read the string
-PUSH   CS
-POP    DS
-LEA    DI,str
-MOV    DX,00FFH
-CALL   GET_STRING   
-
-
-; print message-output of a string at ds:dx
-LEA    dx,n_line
-MOV    ah,09h
-INT    21h                
-           
-                     
-                     
-; ---------------------------------------------------------------------Encryption--------------------------------------------------------------------------------------------
-=======
 ******************************************************************************
  ;* File Name: chipers.asm
  ;*
@@ -368,7 +319,7 @@ INT    21h
 
 CALL start              
 
----------------------------------------------------------------Monoalphapetic Cipher---------------------------------------------------------------
+;---------------------------------------------------------------Monoalphapetic Cipher---------------------------------------------------------------
 	
 
 monoalphapetic:
@@ -392,3 +343,8 @@ CALL   GET_STRING
 LEA    dx,n_line
 MOV    ah,09h
 INT    21h                
+           
+                     
+                     
+; ---------------------------------------------------------------------Encryption--------------------------------------------------------------------------------------------
+
