@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 monoalphapetic:
 
            
@@ -23,6 +24,20 @@ INT    21h
                      
                      
 ; ---------------------------------------------------------------------Encryption--------------------------------------------------------------------------------------------
+=======
+******************************************************************************
+ ;* File Name: chipers.asm
+ ;*
+ ;* Description: Source file for chipers project for 8086 Intel Microcontroller.
+ ;*               This code contains two types ofchipers 1-MonoNumeric 
+ ;*                                                       
+ ;*                                                      2-Monoalphaptic  
+ ;*
+ ;*
+ ;* Author: Ola Mohamed -Rana Osama -Mariam Fathi - Doha Khaled - Yasmin Atyia
+;******************************************************************************/
+
+>>>>>>> main
 name "crypt"
 
 include 'emu8086.inc'
@@ -102,3 +117,231 @@ enc_str     DB  256 DUP('$')                ;encrypted string
 dec_str     DB  256 DUP('$')                ;decrypted string   
 
 ;--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+start:  
+
+
+; print message-output of a string at ds:dx
+
+LEA    dx,msg4 
+
+MOV    ah,09h
+
+INT    21h
+
+
+; read the string
+
+PUSH   CS
+
+POP    DS
+
+LEA    DI,cho
+
+MOV    DX,000FH
+
+CALL   GET_STRING  
+
+
+; print message-output of a string at ds:dx
+
+LEA    dx,n_line
+
+MOV    ah,09h
+
+INT    21h
+       
+
+
+LEA    si, cho
+
+
+cmp    [si], '1'  
+    
+je     monoalphapetic 
+ 
+
+cmp    [si], '2'          
+
+je     mononumeric 
+
+
+cmp    [si], '3'          
+
+je     exit     
+         
+
+;--------------------------------------------------------------------------------------------------------------------------------------------
+
+mononumeric:
+
+
+
+; Displays "Enter a message to encrypt: " message
+
+LEA DX, encrypt_msg
+
+MOV AH,9
+
+INT 21h
+
+
+
+; Takes input from user
+
+LEA DX, buffer
+
+mov AH,0Ah ; Sub-function that stores input of a string to DS:DX
+
+INT 21h
+
+
+
+; Puts $ at the end to be able to print it later
+
+MOV BX,0
+
+MOV BL, buffer[1]
+
+MOV buffer[BX+ 2],'$'
+
+
+;-------------------------------------------------------- Encrypting ------------------------------------------
+
+
+; Displays "Encrypted message: " message
+
+LEA DX, encrypted_msg
+
+MOV AH,9
+
+INT 21h
+
+
+
+; The encryption code
+
+MOV DI,3FFh
+
+MOV BX,DI
+
+LEA SI, buffer[2]     
+
+
+
+
+next_char:
+
+CMP [SI],'$' ; Check if reached end of message
+
+JE end_msg
+
+
+
+LODSB ; Loads first char into AL, then moves SI to next char
+
+CMP AL,'a'
+
+JB next_char ; If char is invalid, skip it
+
+CMP AL,'z'
+
+JA next_char
+
+XLATB ; Encrypt   
+
+
+
+
+forspace:
+
+MOV [SI-1],AL
+
+MOV AH,0
+
+CALL PRINT_NUM_UNS ; Using a procedure to print numbers
+
+DEFINE_PRINT_NUM_UNS
+
+
+
+JMP next_char
+
+
+
+;space: mov al,0h
+
+; jmp forspace
+
+
+end_msg:
+
+; ------------------------------------------Decryption--------------------------------------------------------
+
+
+MOV BX,DI
+
+LEA SI, buffer[2]
+
+
+
+next_num:
+
+CMP [SI],'$'
+
+JE end_nums
+
+
+
+LODSB ; Loads byte from DS:SI to AL, then increments SI by 1
+
+CMP AL,1
+
+JB next_num
+
+CMP AL,26
+
+JA next_num
+
+XLATB ; Decrypt
+
+MOV [SI-1],AL
+
+JMP next_num
+
+
+
+end_nums:
+
+LEA DX, decrypt_msg
+
+MOV AH,9
+
+INT 21h
+
+
+
+; Displays decrypted message
+
+LEA DX, buffer+2
+
+MOV AH,9
+
+INT 21h        
+
+
+; print message-output of a string at ds:dx
+LEA    dx,n_line
+MOV    ah,09h
+INT    21h 
+
+
+; print message-output of a string at ds:dx
+LEA    dx,n_line
+MOV    ah,09h
+INT    21h
+
+CALL start              
+
