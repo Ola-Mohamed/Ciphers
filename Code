@@ -347,4 +347,13 @@ INT    21h
                      
                      
 ; ---------------------------------------------------------------------Encryption--------------------------------------------------------------------------------------------
+LEA    bx, table1
+LEA    si, str
+LEA    di, enc_str
+CALL   parse   
 
+                                          
+; print message-output of a string at ds:dx
+LEA    dx,msg2
+MOV    ah,09h
+INT    21h     
