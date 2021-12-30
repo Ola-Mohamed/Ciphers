@@ -357,3 +357,16 @@ CALL   parse
 LEA    dx,msg2
 MOV    ah,09h
 INT    21h     
+ 
+ 
+ ; show result-output of a string at ds:dx
+LEA    dx, enc_str
+MOV    ah, 09
+INT    21h       
+
+
+; print message-output of a string at ds:dx
+LEA    dx,n_line
+MOV    ah,09h
+INT    21h     
+     ;------------------------------------------------------------------------Decryption-------------------------------------------------------------------------------------
