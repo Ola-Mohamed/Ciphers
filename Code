@@ -1,3 +1,17 @@
+
+******************************************************************************
+ ;* File Name: chipers.asm
+ ;*
+ ;* Description: Source file for chipers project for 8086 Intel Microcontroller.
+ ;*               This code contains two types ofchipers 1-MonoNumeric 
+ ;*                                                       
+ ;*                                                      2-Monoalphaptic  
+ ;*
+ ;*
+ ;* Author: Ola Mohamed -Rana Osama -Mariam Fathi - Doha Khaled - Yasmin Atyia
+;******************************************************************************/
+
+>>>>>>> main
 name "crypt"
 
 include 'emu8086.inc'
@@ -238,7 +252,10 @@ JMP next_char
 
 end_msg:
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 ; ------------------------------------------Decryption--------------------------------------------------------
 
 
@@ -281,3 +298,82 @@ LEA DX, decrypt_msg
 MOV AH,9
 
 INT 21h
+<<<<<<< HEAD
+=======
+
+
+
+; Displays decrypted message
+
+LEA DX, buffer+2
+
+MOV AH,9
+
+INT 21h        
+
+
+; print message-output of a string at ds:dx
+LEA    dx,n_line
+MOV    ah,09h
+INT    21h 
+
+
+; print message-output of a string at ds:dx
+LEA    dx,n_line
+MOV    ah,09h
+INT    21h
+
+CALL start              
+
+;---------------------------------------------------------------Monoalphapetic Cipher---------------------------------------------------------------
+	
+
+monoalphapetic:
+
+           
+; print message-output of a string at ds:dx
+LEA    dx,msg1
+MOV    ah,09h
+INT    21h       
+
+
+; read the string
+PUSH   CS
+POP    DS
+LEA    DI,str
+MOV    DX,00FFH
+CALL   GET_STRING   
+
+
+; print message-output of a string at ds:dx
+LEA    dx,n_line
+MOV    ah,09h
+INT    21h                
+           
+                     
+                     
+; ---------------------------------------------------------------------Encryption--------------------------------------------------------------------------------------------
+LEA    bx, table1
+LEA    si, str
+LEA    di, enc_str
+CALL   parse   
+
+                                          
+; print message-output of a string at ds:dx
+LEA    dx,msg2
+MOV    ah,09h
+INT    21h     
+ 
+ 
+ ; show result-output of a string at ds:dx
+LEA    dx, enc_str
+MOV    ah, 09
+INT    21h       
+
+
+; print message-output of a string at ds:dx
+LEA    dx,n_line
+MOV    ah,09h
+INT    21h     
+     ;------------------------------------------------------------------------Decryption-------------------------------------------------------------------------------------
+>>>>>>> main
