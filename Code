@@ -377,3 +377,27 @@ MOV    ah,09h
 INT    21h     
      ;------------------------------------------------------------------------Decryption-------------------------------------------------------------------------------------
 >>>>>>> main
+
+LEA    bx, table2
+LEA    si, enc_str
+LEA    di, dec_str
+CALL   parse 
+
+
+; print message-output of a string at ds:dx
+LEA    dx,msg3
+MOV    ah,09h
+INT    21h    
+
+
+; show result-output of a string at ds:dx
+LEA    dx, dec_str
+MOV    ah, 09
+INT    21h  
+
+
+
+
+
+
+
