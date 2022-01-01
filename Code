@@ -237,3 +237,47 @@ JMP next_char
 
 
 end_msg:
+
+
+; ------------------------------------------Decryption--------------------------------------------------------
+
+
+MOV BX,DI
+
+LEA SI, buffer[2]
+
+
+
+next_num:
+
+CMP [SI],'$'
+
+JE end_nums
+
+
+
+LODSB ; Loads byte from DS:SI to AL, then increments SI by 1
+
+CMP AL,1
+
+JB next_num
+
+CMP AL,26
+
+JA next_num
+
+XLATB ; Decrypt
+
+MOV [SI-1],AL
+
+JMP next_num
+
+
+
+end_nums:
+
+LEA DX, decrypt_msg
+
+MOV AH,9
+
+INT 21h
