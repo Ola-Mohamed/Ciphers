@@ -409,7 +409,38 @@ INT    21h
 
 CALL start
 
+; subroutine to encrypt/decrypt
+; parameters: 
+;             si - address of string to encrypt
+;             bx - table to use.
 
+
+;           'abcdefghijklmnopqrstvuwxyz'
+
+;table1:    'qwertyuiopasdfghjklzxcvbnm'
+
+;table2:    'kbumcngphqrszyijadlewgbvft'  
+
+
+
+parse proc near    
+    
+
+nextchar:
+	cmp    [si], '$'      ; end of string?
+	je     end_of_string
+	cmp    [si], ' '
+	je     skip
+	
+	mov    al, [si]
+	cmp    al, 'a'
+	jb     skip
+	cmp    al, 'z'
+	ja     skip	
+	; xlat algorithm: al = ds:[bx + unsigned al] 
+	xlatb     ; encrypt using table2.  
+	mov    [di], al
+	inc    di  
 
 
 
