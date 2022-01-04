@@ -23,38 +23,40 @@ org 100h
 
 ; Storing letters from a to z (lower case)
 
-MOV CX,26 ; Size of letters in the alphabet
+MOV CX,26                      ; Size of letters in the alphabet
 
-MOV AL,61h ; ASCII code for letter 'a'
+MOV AL,61h                     ; ASCII code for letter 'a'
 
-MOV DI,400h ; Hold the offset of memory location in the ES
+MOV DI,400h                    ; Hold the offset of memory location in the ES
 
-CLD ; clears the direction flag ( DF = 0 )
-
-
+CLD                            ; clears the direction flag ( DF = 0 ,auto increament)
 
 store_letters:
 
-STOSB ; Copies a byte from AL to a memory location in ES. DI is used to hold the offset of the memory location in the ES. After the copy, DI is automatically incremented or decremented to point to the next string element in memory.
+STOSB                          ; Copies a byte from AL to a memory location in ES. DI is used to hold the offset of the memory location in the ES.
+                               ;After the copy, DI is automatically incremented or decremented to point to the next string element in memory.
 
-INC AL ; Increases AL value by 1, therefore changing the letter
+INC AL                         ; Increases AL value by 1, therefore changing the letter
 
-LOOP store_letters ; Loops if CX after decrementing by 1 not equal 0
+LOOP store_letters             ; Loops if CX after decrementing by 1 not equal 0
+
+
 store_numbers:
 
-STOSB
+STOSB                           ; Copies a byte from AL to a memory location in ES. DI is used to hold the offset of the memory location in the ES.
+                                ;After the copy, DI is automatically incremented or decremented to point to the next number element in memory.
 
-INC AL
+INC AL                           ; Increases AL value by 1, therefore changing the letter
 
-LOOP store_numbers  
+LOOP store_numbers               ; Loops if CX after decrementing by 1 not equal 0
+ 
+;--------------------------------------------------------------------------------------------------------------------------------------------
+
+jmp start                      
 
 ;--------------------------------------------------------------------------------------------------------------------------------------------
 
-jmp start
-
-;--------------------------------------------------------------------------------------------------------------------------------------------
-
-encrypt_msg db 0Dh,0Ah,"Enter a message to encrypt: $"
+encrypt_msg db 0Dh,0Ah,"Enter a message to encrypt: $"     
 
 encrypted_msg db 0Dh,0Ah,"The encrypted message is: $"
 
@@ -82,7 +84,7 @@ msg5        DB  'Thank You For Your Time  ', '$'
 
 n_line      DB  0DH,0AH,'$'                 ;for new line 
 
-cho         DB  '$'                
+cho         DB  '$'                         ;for your choose
 
 str         DB  256 DUP('$')                ;buffer string
 
@@ -441,6 +443,13 @@ nextchar:
 	xlatb     ; encrypt using table2.  
 	mov    [di], al
 	inc    di  
+	
+skip:
+	inc    si	
+	jmp    nextchar
+	
 
-
+end_of_string:
+    inc    si
+    mov    [si], '$'
 
