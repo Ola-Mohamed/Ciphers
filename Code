@@ -338,4 +338,11 @@ skip:
 end_of_string:
     INC   SI
     MOV   [SI], '$'
+ret     
+
+parse endp         
+           
+
+exit:       
+
 
