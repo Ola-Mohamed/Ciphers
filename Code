@@ -59,11 +59,11 @@ buffer db 27,?,27 dup(' ')
 
 ;                            'abcdefghijklmnopqrstvuwxyz'
 
-table1      db 97 dup (' '), 'klmnxyzabcopqrstvuwdefghij'
+table1      db 97 dup (' '), 'klmnxyzabcopqrstvuwdefghij'    ;store normal letters in table1 at size of 97 
 
-table2      db 97 dup (' '), 'hijtuvwxyzabcdklmnoprqsefg'
+table2      db 97 dup (' '), 'hijtuvwxyzabcdklmnoprqsefg'    ;store code letters in table2 at size of 97
 
-msg1        DB  0Dh,0Ah,'Enter the message: ', '$'
+msg1        DB  0Dh,0Ah,'Enter the message: ', '$'      
 
 msg2        DB  'Encrypted message: ', '$'
 
@@ -221,17 +221,18 @@ monoalphapetic:
 
            
 ; print message-output of a string at ds:dx
-LEA    dx,msg1
-MOV    ah,09h
+LEA    dx,msg1           ;save the effective address in dx register
+;to print the string in msg1 (of ds:dx)
+MOV    ah,09h            
 INT    21h       
 
 
 ; read the string
 PUSH   CS
 POP    DS
-LEA    DI,str
-MOV    DX,00FFH
-CALL   GET_STRING   
+LEA    DI,str      ;DI register is to save offset address 
+MOV    DX,00FFH    ;DX register is to save the size
+CALL   GET_STRING  ;this function takes the user message and saves the string in size in DX  
 
 
 ; print message-output of a string at ds:dx
