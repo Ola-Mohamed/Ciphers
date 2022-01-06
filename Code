@@ -75,32 +75,32 @@ msg4        DB  'To Use Monoalphabetic Cipher Enter 1',0Dh,0Ah,'To Use Mononumer
 
 msg5        DB  'Thank You For Your Time  ', '$'
 
-n_line      DB  0DH,0AH,'$'                 ; for new line 
+n_line      DB  0DH,0AH,'$'                                              ; for new line 
 
-cho         DB  '$'                         ; for your choose
+cho         DB  '$'                                                      ; for your choose
 
-str         DB  256 DUP('$')                ; buffer string
+str         DB  256 DUP('$')                                             ; buffer string
 
-enc_str     DB  256 DUP('$')                ; encrypted string
+enc_str     DB  256 DUP('$')                                             ; encrypted string
 
-dec_str     DB  256 DUP('$')                ; decrypted string   
+dec_str     DB  256 DUP('$')                                             ; decrypted string   
 
 ;--------------------------------------------------------------------------------------------------------------------------------------------
 start:                                      ; start program
 
 ; print a choose message-output of a string at ds:dx
-LEA   DX,msg4                               ; address msg4 with dx
-MOV   AH,09h                                ; Selecting the sub-function
-INT   21h                                   ; Function that outputs a string at DS:DX. String must be terminated by '$'
+LEA   DX,msg4                                                            ; address msg4 with dx
+MOV   AH,09h                                                             ; Selecting the sub-function
+INT   21h                                                                ; Function that outputs a string at DS:DX. String must be terminated by '$'
 
 
 ;read the string
 
-PUSH   CS                                  ; push code segment from stack
-POP    DS                                  ; pop data segment from stack
-LEA    DI,cho                              ; address cho with di
-MOV    DX,000FH                            ; exchange dx with 000FH
-CALL   GET_STRING                          ; call get string function
+PUSH   CS                                                               ; push code segment from stack
+POP    DS                                                               ; pop data segment from stack
+LEA    DI,cho                                                           ; address cho with di
+MOV    DX,000FH                                                         ; exchange dx with 000FH
+CALL   GET_STRING                                                       ; call get string function
 
 
 
