@@ -216,7 +216,7 @@ CALL start
 monoalphapetic:
 
            
-; print message-output of a string that the DS:DX segment:offset pair point to  
+; print a string that the DS:DX segment:offset pair point to 
 
 LEA    dx,msg1           ; save the effective address of msg1 in DX register (offset of the string)
 
@@ -245,29 +245,35 @@ INT    21h           ; interrupt 21h is called
 
                                
 ; ---------------------------------------------------------------------Encryption--------------------------------------------------------------------------------------------
-LEA    bx, table1
-LEA    si, str
-LEA    di, enc_str
+
+LEA    bx, table1      ; save the effective address of table1 in BX register
+LEA    si, str         ; save the effective address of str in SI register
+LEA    di, enc_str     ; save the effective address of enc_str in DI register
+
 CALL   parse   
 
                                           
-; print message-output of a string at ds:dx
-LEA    dx,msg2
-MOV    ah,09h
-INT    21h     
+; print a string that the DS:DX segment:offset pair point to 
+
+LEA    dx,msg2         ; save the effective address of msg2 in DX register (offset of the string)
+MOV    ah,09h          ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
+INT    21h             ; interrupt 21h is called to output the string 
  
  
- ; show result-output of a string at ds:dx
-LEA    dx, enc_str
-MOV    ah, 09
-INT    21h       
+; print a string that the DS:DX segment:offset pair point to 
+
+LEA    dx, enc_str     ; save the effective address of enc_str in DX register (offset of the string)
+MOV    ah, 09h         ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
+INT    21h             ; interrupt 21h is called to output the string 
 
 
-; print message-output of a string at ds:dx
-LEA    dx,n_line
-MOV    ah,09h
-INT    21h     
-     ;------------------------------------------------------------------------Decryption-------------------------------------------------------------------------------------
+; print new line
+
+LEA    dx,n_line       ; save the effective address of n_line in DX register (offset of the string)
+MOV    ah,09h          ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
+INT    21h             ; interrupt 21h is called to output the string
+
+;------------------------------------------------------------------------Decryption-------------------------------------------------------------------------------------
 >>>>>>> main
 
 LEA    bx, table2
