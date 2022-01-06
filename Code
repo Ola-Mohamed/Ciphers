@@ -1,4 +1,4 @@
-******************************************************************************
+;******************************************************************************
  ;* File Name: chipers.asm
  ;*
  ;* Description: Source file for chipers project for 8086 Intel Microcontroller.
@@ -10,7 +10,7 @@
  ;* Author: Ola Mohamed -Rana Osama -Mariam Fathi - Doha Khaled - Yasmin Atyia
 ;******************************************************************************
 
->>>>>>> main
+
 name "crypt"
 include 'emu8086.inc'
 org 100h 
@@ -163,9 +163,7 @@ JMP next_char
 ; jmp forspace
 end_msg:
 
-<<<<<<< HEAD
 
->>>>>>> main
 ; ------------------------------------------Decryption--------------------------------------------------------
 MOV BX,DI
 LEA SI, buffer[2]
@@ -190,8 +188,7 @@ end_nums:
 LEA DX, decrypt_msg
 MOV AH,9
 INT 21h
-<<<<<<< HEAD
-=======
+
 
 ; Displays decrypted message
 LEA DX, buffer+2
@@ -274,7 +271,7 @@ MOV    ah,09h          ; moving (09h) to the register ah to select sub-function 
 INT    21h             ; interrupt 21h is called to output the string
 
 ;------------------------------------------------------------------------Decryption-------------------------------------------------------------------------------------
->>>>>>> main
+
 
 LEA    bx, table2
 LEA    si, enc_str
@@ -358,3 +355,7 @@ exit:
 LEA    dx,n_line
 MOV    ah,09h
 INT    21h  
+
+DEFINE_GET_STRING       ;predefined macro in umu8086.inc to read a string input 
+
+end
