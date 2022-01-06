@@ -104,17 +104,17 @@ CALL   GET_STRING                                                       ; call g
 
 
 
-LEA  DX ,n_line                           ; address n_line with dx
-MOV  AH,09h                               ; Selecting the sub-function
-INT   21h                                 ; Function that outputs a string at DS:DX. String must be terminated by '$'
+LEA  DX ,n_line                                                         ; address n_line with dx
+MOV  AH,09h                                                             ; Selecting the sub-function
+INT   21h                                                               ; Function that outputs a string at DS:DX. String must be terminated by '$'
        
-LEA    SI, cho                            ; address cho with si
-CMP    [SI], '1'                          ; compare between "1" and effictive address of si
-JE     monoalphapetic                     ; jump if [si]=1 to monoalphapetic  
-CMP    [SI], '2'                          ; compare between "2" and effictive address of si        
-JE     mononumeric                        ; jump if  [si]=2  to  mononumeric
-CMP    [SI], '3'                          ; compare between "3" and effictive address of si
-JE     exit                               ; jump if [si]=3 to exit
+LEA    SI, cho                                                          ; address cho with si
+CMP    [SI], '1'                                                        ; compare between "1" and effictive address of si
+JE     monoalphapetic                                                   ; jump if [si]=1 to monoalphapetic  
+CMP    [SI], '2'                                                        ; compare between "2" and effictive address of si        
+JE     mononumeric                                                      ; jump if  [si]=2  to  mononumeric
+CMP    [SI], '3'                                                        ; compare between "3" and effictive address of si
+JE     exit                                                             ; jump if [si]=3 to exit
          
 ;--------------------------------------------------------------------------------------------------------------------------------------------
 
