@@ -89,9 +89,9 @@ dec_str     DB  256 DUP('$')                                             ; decry
 start:                                      ; start program
 
 ; print a choose message-output of a string at ds:dx
-LEA   DX,msg4                                                            ; address msg4 with dx
-MOV   AH,09h                                                             ; Selecting the sub-function
-INT   21h                                                                ; Function that outputs a string at DS:DX. String must be terminated by '$'
+LEA   DX,msg4                                                           ; address msg4 with dx
+MOV   AH,09h                                                            ; Selecting the sub-function
+INT   21h                                                               ; Function that outputs a string at DS:DX. String must be terminated by '$'
 
 
 ;read the string
@@ -246,18 +246,18 @@ INT    21h                                                                    ; 
                                
 ; ---------------------------------------------------------------------Encryption--------------------------------------------------------------------------------------------
 
-LEA    bx, table1      ; save the effective address of table1 in BX register
-LEA    si, str         ; save the effective address of str in SI register
-LEA    di, enc_str     ; save the effective address of enc_str in DI register
+LEA    bx, table1                                                             ; save the effective address of table1 in BX register
+LEA    si, str                                                                ; save the effective address of str in SI register
+LEA    di, enc_str                                                            ; save the effective address of enc_str in DI register
 
 CALL   parse   
 
                                           
 ;print a string that the DS:DX segment:offset pair point to 
 
-LEA    dx,msg2         ; save the effective address of msg2 in DX register (offset of the string)
-MOV    ah,09h          ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
-INT    21h             ; interrupt 21h is called to output the string 
+LEA    dx,msg2                                                               ; save the effective address of msg2 in DX register (offset of the string)
+MOV    ah,09h                                                                ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
+INT    21h                                                                   ; interrupt 21h is called to output the string 
  
  
 ;print a string that the DS:DX segment:offset pair point to 
