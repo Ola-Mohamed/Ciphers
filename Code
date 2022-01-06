@@ -34,7 +34,7 @@ LOOP store_letters             ; Loops if CX after decrementing by 1 not equal 0
 
 MOV CX,26                      ; Size of letters in the alphabet
 MOV AL,1                       ; Starting from number 1
-MOV DI,460h                    ;
+MOV DI,460h                    ; Hold the offset of memory location in the ES
 
 
 store_numbers:
@@ -61,9 +61,9 @@ buffer db 27,?,27 dup(' ')
 
 ;                            'abcdefghijklmnopqrstvuwxyz'
 
-table1      db 97 dup (' '), 'klmnxyzabcopqrstvuwdefghij'    ;store normal letters in table1 at size of 97 
+table1      db 97 dup (' '), 'klmnxyzabcopqrstvuwdefghij'                 ; store normal letters in table1 at size of 97 
 
-table2      db 97 dup (' '), 'hijtuvwxyzabcdklmnoprqsefg'    ;store code letters in table2 at size of 97
+table2      db 97 dup (' '), 'hijtuvwxyzabcdklmnoprqsefg'                 ; store code letters in table2 at size of 97
 
 msg1        DB  0Dh,0Ah,'Enter the message: ', '$'      
 
@@ -86,7 +86,7 @@ enc_str     DB  256 DUP('$')                ; encrypted string
 dec_str     DB  256 DUP('$')                ; decrypted string   
 
 ;--------------------------------------------------------------------------------------------------------------------------------------------
-start:                                      ;start program
+start:                                      ; start program
 
 ; print a choose message-output of a string at ds:dx
 LEA   DX,msg4                               ; address msg4 with dx
@@ -147,16 +147,16 @@ MOV DI,3FFh                            ; moving (3FFh) to the register DI
 MOV BX,DI                              
 LEA SI, buffer[2]     
 
-next_char:
-CMP [SI],'$' ; Check if reached end of message
+NEXT_CHAR:
+CMP [SI],'$'                           ; Check if reached end of message
 JE end_msg
 
 LODSB ; Loads first char into AL, then moves SI to next char
 CMP AL,'a'
-JB next_char ; If char is invalid, skip it
+JB NEXT_CHAR                           ; If char is invalid, skip it
 CMP AL,'z'
-JA next_char
-XLATB ; Encrypt   
+JA NEXT_CHAR
+XLATB                                  ; Encrypt   
 
 forspace:
 MOV [SI-1],AL
@@ -164,7 +164,7 @@ MOV AH,0
 CALL PRINT_NUM_UNS ; Using a procedure to print numbers
 DEFINE_PRINT_NUM_UNS
 
-JMP next_char
+JMP NEXT_CHAR
 ;space:  mov al,0h
 ; jmp forspace
 end_msg:
@@ -178,13 +178,13 @@ next_num:
 CMP [SI],'$'
 JE end_nums
 
-LODSB ; Loads byte from DS:SI to AL, then increments SI by 1
+LODSB                                      ; Loads byte from DS:SI to AL, then increments SI by 1
 CMP AL,1
 
 JB next_num
 CMP AL,26
 JA next_num
-XLATB ; Decrypt
+XLATB                                      ; Decrypt
 MOV [SI-1],AL
 JMP next_num
 
