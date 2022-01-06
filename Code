@@ -153,10 +153,10 @@ JE end_msg
 
 LODSB ; Loads first char into AL, then moves SI to next char
 CMP AL,'a'
-JB NEXT_CHAR                           ; If char is invalid, skip it
+JB NEXT_CHAR                                                          ; If char is invalid, skip it
 CMP AL,'z'
 JA NEXT_CHAR
-XLATB                                  ; Encrypt   
+XLATB                                                                 ; Encrypt   
 
 forspace:
 MOV [SI-1],AL
@@ -178,13 +178,13 @@ next_num:
 CMP [SI],'$'
 JE end_nums
 
-LODSB                                      ; Loads byte from DS:SI to AL, then increments SI by 1
+LODSB                                                                 ; Loads byte from DS:SI to AL, then increments SI by 1
 CMP AL,1
 
 JB next_num
 CMP AL,26
 JA next_num
-XLATB                                      ; Decrypt
+XLATB                                                                 ; Decrypt
 MOV [SI-1],AL
 JMP next_num
 
@@ -221,17 +221,17 @@ monoalphapetic:
            
 ;print a string that the DS:DX segment:offset pair point to 
 
-LEA    dx,msg1           ; save the effective address of msg1 in DX register (offset of the string)
-MOV    ah,09h            ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts       
-INT    21h               ; interrupt 21h is called to output the string  
+LEA    dx,msg1                                                                 ; save the effective address of msg1 in DX register (offset of the string)
+MOV    ah,09h                                                                  ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts       
+INT    21h                                                                     ; interrupt 21h is called to output the string  
 
 
 ;take the input from a user
 
-PUSH   CS          ; pushes CS (code segment) into the stack
-POP    DS          ; pops DS (data segment) out of the stack
-LEA    DI,str      ; DI register is to save offset address 
-MOV    DX,00FFH    ; DX register is to save the buffer size
+PUSH   CS                                                                     ; pushes CS (code segment) into the stack
+POP    DS                                                                     ; pops DS (data segment) out of the stack
+LEA    DI,str                                                                 ; DI register is to save offset address 
+MOV    DX,00FFH                                                               ; DX register is to save the buffer size
 
 CALL   GET_STRING  ; procedure to get string from a user
                    ; the received string is written buffer at DS:DI , buffer size should be in DX
