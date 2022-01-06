@@ -40,8 +40,8 @@ MOV DI,460h                    ;
 store_numbers:
 STOSB                           ; Copies a byte from AL to a memory location in ES. DI is used to hold the offset of the memory location in the ES.
                                 ; After the copy, DI is automatically incremented or decremented to point to the next number element in memory.
-INC AL                           ; Increases AL value by 1, therefore changing the letter
-LOOP store_numbers               ; Loops if CX after decrementing by 1 not equal 0
+INC AL                          ; Increases AL value by 1, therefore changing the letter
+LOOP store_numbers              ; Loops if CX after decrementing by 1 not equal 0
  
 ;--------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -356,15 +356,15 @@ parse endp
 exit:       
 
 ; print new line -  output of a string at ds:dx
-LEA    dx,n_line    ;save the effective address of new line in dx register  (offset address)
+LEA    dx,n_line    ; save the effective address of new line in dx register  (offset address)
 MOV    ah,09h       ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
-INT    21h           ; interrupt 21h is called 
+INT    21h          ; interrupt 21h is called 
 
-;print message (5)-output of a string at ds:dx
+; print message (5)-output of a string at ds:dx
 LEA    dx,msg5
 MOV    ah,09h
 INT    21h
 
-DEFINE_GET_STRING       ;predefined macro in umu8086.inc to read a string input 
+DEFINE_GET_STRING     ; predefined macro in umu8086.inc to read a string input 
 
 end
