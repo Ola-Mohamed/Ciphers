@@ -353,9 +353,9 @@ parse endp
 exit:       
 
 ; print new line -  output of a string at ds:dx
-LEA    dx,n_line
-MOV    ah,09h
-INT    21h  
+LEA    dx,n_line    ;save the effective address in dx register  (offset address)
+MOV    ah,09h       ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
+INT    21h           ; interrupt 21h is called 
 
 DEFINE_GET_STRING       ;predefined macro in umu8086.inc to read a string input 
 
