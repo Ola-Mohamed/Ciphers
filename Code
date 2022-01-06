@@ -214,23 +214,27 @@ CALL start
 monoalphapetic:
 
            
-; print message-output of a string that the Ds:Dx segment:offset pair point to 
-LEA    dx,msg1           ; save the effective address of msg1 in dx register
+; print message-output of a string that the Ds:Dx segment:offset pair point to  
 
-;to print the string in msg1 (of ds:dx)
+LEA    dx,msg1           ; save the effective address of msg1 in dx register (offset of the string)
+
+;to print msg1
+
 MOV    ah,09h            ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts       
-INT    21h               ; call the interrupt 21h to output the string  
+INT    21h               ; interrupt 21h is called to output the string  
 
 
 ; read the string
-PUSH   CS           ; pushes CS into the stack
-POP    DS           ; pops DS out of the stack
+
+PUSH   CS          ; pushes CS (code segment) into the stack
+POP    DS          ; pops DS (data segment) out of the stack
 LEA    DI,str      ; DI register is to save offset address 
-MOV    DX,00FFH    ; DX register is to save the size
-CALL   GET_STRING  ; this function takes the user message and saves the string in size in DX  
+MOV    DX,00FFH    ; DX register is to save the buffer size
 
+CALL   GET_STRING  
 
-; print message-output of a string at ds:dx
+; print new line
+
 LEA    dx,n_line     ; save the effective address in dx register
 MOV    ah,09h        ; moves (09h) which has the message to AH resgister
 INT    21h           ; call the interrupt handler 0x21    
