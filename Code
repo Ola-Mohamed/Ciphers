@@ -120,14 +120,14 @@ JE     exit                                                             ; jump i
 
 mononumeric:
 
-LEA DX, encrypt_msg                      ; Displays "Enter a message to encrypt: " message
-MOV AH,9                                 ; Selecting the sub-function
-INT 21h                                  ; Function that outputs a string at DS:DX. String must be terminated by '$'
+LEA DX, encrypt_msg                                                    ; Displays "Enter a message to encrypt: " message
+MOV AH,9                                                               ; Selecting the sub-function
+INT 21h                                                                ; Function that outputs a string at DS:DX. String must be terminated by '$'
 
 ; Takes input from user
-LEA DX, buffer                          ; address buffer with dx
-mov AH,0Ah                              ; Sub-function that stores input of a string to DS:DX
-INT 21h                                 ; Function that outputs a string at DS:DX. String must be terminated by '$'
+LEA DX, buffer                                                         ; address buffer with dx
+mov AH,0Ah                                                             ; Sub-function that stores input of a string to DS:DX
+INT 21h                                                                ; Function that outputs a string at DS:DX. String must be terminated by '$'
 
 ; Puts $ at the end to be able to print it later
 MOV BX,0
@@ -143,12 +143,12 @@ MOV AH,9
 INT 21h
 
 ; The encryption code
-MOV DI,3FFh                            ; moving (3FFh) to the register DI
+MOV DI,3FFh                                                           ; moving (3FFh) to the register DI
 MOV BX,DI                              
 LEA SI, buffer[2]     
 
 NEXT_CHAR:
-CMP [SI],'$'                           ; Check if reached end of message
+CMP [SI],'$'                                                          ; Check if reached end of message
 JE end_msg
 
 LODSB ; Loads first char into AL, then moves SI to next char
