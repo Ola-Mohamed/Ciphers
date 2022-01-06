@@ -325,14 +325,14 @@ CALL start
 parse proc near    
     
 
-nextchar:
-	cmp    [si], '$'      ; end of string?
-	je     end_of_string
-	cmp    [si], ' '
-	je     skip
+NEXTCHAR:
+CMP    [si], '$'      ; end of string?
+JE    end_of_string
+CMP    [si], ' '
+JE     skip
 	
-	mov    al, [si]
-	cmp    al, 'a'
+MOV   al, [si]
+CMP    al, 'a'
 	jb     skip
 	cmp    al, 'z'
 	ja     skip	
