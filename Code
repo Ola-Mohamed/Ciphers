@@ -26,14 +26,14 @@ CLD                            ; clears the direction flag ( DF = 0 ,auto increa
 
 store_letters:
 STOSB                          ; Copies a byte from AL to a memory location in ES. DI is used to hold the offset of the memory location in the ES.
-                               ;After the copy, DI is automatically incremented or decremented to point to the next string element in memory.
+                               ; After the copy, DI is automatically incremented or decremented to point to the next string element in memory.
 INC AL                         ; Increases AL value by 1, therefore changing the letter
 LOOP store_letters             ; Loops if CX after decrementing by 1 not equal 0
 
 
 store_numbers:
 STOSB                           ; Copies a byte from AL to a memory location in ES. DI is used to hold the offset of the memory location in the ES.
-                                ;After the copy, DI is automatically incremented or decremented to point to the next number element in memory.
+                                ; After the copy, DI is automatically incremented or decremented to point to the next number element in memory.
 INC AL                           ; Increases AL value by 1, therefore changing the letter
 LOOP store_numbers               ; Loops if CX after decrementing by 1 not equal 0
  
@@ -69,57 +69,57 @@ msg4        DB  'To Use Monoalphabetic Cipher Enter 1',0Dh,0Ah,'To Use Mononumer
 
 msg5        DB  'Thank You For Your Time  ', '$'
 
-n_line      DB  0DH,0AH,'$'                 ;for new line 
+n_line      DB  0DH,0AH,'$'                 ; for new line 
 
-cho         DB  '$'                         ;for your choose
+cho         DB  '$'                         ; for your choose
 
-str         DB  256 DUP('$')                ;buffer string
+str         DB  256 DUP('$')                ; buffer string
 
-enc_str     DB  256 DUP('$')                ;encrypted string
+enc_str     DB  256 DUP('$')                ; encrypted string
 
-dec_str     DB  256 DUP('$')                ;decrypted string   
+dec_str     DB  256 DUP('$')                ; decrypted string   
 
 ;--------------------------------------------------------------------------------------------------------------------------------------------
 start:                                      ;start program
 
 ; print a choose message-output of a string at ds:dx
-LEA   DX,msg4                               ;address msg4 with dx
+LEA   DX,msg4                               ; address msg4 with dx
 MOV   AH,09h                                ; Selecting the sub-function
 INT   21h                                   ; Function that outputs a string at DS:DX. String must be terminated by '$'
 
 
 ;read the string
 
-PUSH   CS                                  ;push code segment from stack
-POP    DS                                   ;pop data segment from stack
-LEA    DI,cho                               ;address cho with di
-MOV    DX,000FH                             ;exchange dx with 000FH
-CALL   GET_STRING                           ;call get string function
+PUSH   CS                                  ; push code segment from stack
+POP    DS                                  ; pop data segment from stack
+LEA    DI,cho                              ; address cho with di
+MOV    DX,000FH                            ; exchange dx with 000FH
+CALL   GET_STRING                          ; call get string function
 
 
 
-LEA  DX ,n_line                       ;address n_line with dx
-MOV  AH,09h                           ; Selecting the sub-function
-INT   21h                             ; Function that outputs a string at DS:DX. String must be terminated by '$'
+LEA  DX ,n_line                           ; address n_line with dx
+MOV  AH,09h                               ; Selecting the sub-function
+INT   21h                                 ; Function that outputs a string at DS:DX. String must be terminated by '$'
        
-LEA    SI, cho                         ;address cho with si
-CMP    [SI], '1'                       ;compare between "1" and effictive address of si
-JE     monoalphapetic                  ;jump if [si]=1 to monoalphapetic  
-CMP    [SI], '2'                       ;compare between "2" and effictive address of si        
-JE     mononumeric                     ;jump if  [si]=2  to  mononumeric
-CMP    [SI], '3'                       ;compare between "3" and effictive address of si
-JE     exit                            ;jump if [si]=3 to exit
+LEA    SI, cho                            ; address cho with si
+CMP    [SI], '1'                          ; compare between "1" and effictive address of si
+JE     monoalphapetic                     ; jump if [si]=1 to monoalphapetic  
+CMP    [SI], '2'                          ; compare between "2" and effictive address of si        
+JE     mononumeric                        ; jump if  [si]=2  to  mononumeric
+CMP    [SI], '3'                          ; compare between "3" and effictive address of si
+JE     exit                               ; jump if [si]=3 to exit
          
 ;--------------------------------------------------------------------------------------------------------------------------------------------
 
 mononumeric:
 
-LEA DX, encrypt_msg                     ; Displays "Enter a message to encrypt: " message
-MOV AH,9                                ; Selecting the sub-function
-INT 21h                                 ; Function that outputs a string at DS:DX. String must be terminated by '$'
+LEA DX, encrypt_msg                      ; Displays "Enter a message to encrypt: " message
+MOV AH,9                                 ; Selecting the sub-function
+INT 21h                                  ; Function that outputs a string at DS:DX. String must be terminated by '$'
 
 ; Takes input from user
-LEA DX, buffer                          ;address buffer with dx
+LEA DX, buffer                          ; address buffer with dx
 mov AH,0Ah                              ; Sub-function that stores input of a string to DS:DX
 INT 21h                                 ; Function that outputs a string at DS:DX. String must be terminated by '$'
 
@@ -137,8 +137,8 @@ MOV AH,9
 INT 21h
 
 ; The encryption code
-MOV DI,3FFh
-MOV BX,DI
+MOV DI,3FFh                            ; moving (3FFh) to the register DI
+MOV BX,DI                              
 LEA SI, buffer[2]     
 
 next_char:
