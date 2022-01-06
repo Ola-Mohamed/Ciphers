@@ -305,10 +305,7 @@ INT    21h             ; interrupt 21h is called
 
 CALL start
 
-; subroutine to encrypt/decrypt
-; parameters: 
-;             si - address of string to encrypt
-;             bx - table to use.
+
 
 
 
