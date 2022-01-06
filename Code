@@ -273,9 +273,10 @@ INT    21h             ; interrupt 21h is called to output the string
 ;------------------------------------------------------------------------Decryption-------------------------------------------------------------------------------------
 
 
-LEA    bx, table2
-LEA    si, enc_str
-LEA    di, dec_str
+LEA    bx, table2     ; save the effective address of table2 in BX register 
+LEA    si, enc_str    ; save the effective address of enc_str in SI register 
+LEA    di, dec_str    ; save the effective address of dec_str in DI register
+
 CALL   parse 
 
 
