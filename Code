@@ -2,13 +2,13 @@
  ;* File Name: chipers.asm
  ;*
  ;* Description: Source file for chipers project for 8086 Intel Microcontroller.
- ;*               This code contains two types ofchipers 1-MonoNumeric 
- ;*                                                       
- ;*                                                      2-Monoalphaptic  
  ;*
- ;*
+ ;* This code contains two types of chipers :
+ ;*                                          1- MonoNumeric 
+ ;*                                          2-Monoalphaptic             
+ ;*     
  ;* Author: Ola Mohamed -Rana Osama -Mariam Fathi - Doha Khaled - Yasmin Atyia
-;******************************************************************************/
+;******************************************************************************
 
 >>>>>>> main
 name "crypt"
@@ -215,24 +215,24 @@ monoalphapetic:
 
            
 ; print message-output of a string at ds:dx
-LEA    dx,msg1           ;save the effective address in dx register
+LEA    dx,msg1           ; save the effective address in dx register
 ;to print the string in msg1 (of ds:dx)
-MOV    ah,09h            
-INT    21h       
+MOV    ah,09h            ; moving (09h) to the register ah         
+INT    21h               ; call the interrupt handler 0x21
 
 
 ; read the string
-PUSH   CS
-POP    DS
-LEA    DI,str      ;DI register is to save offset address 
-MOV    DX,00FFH    ;DX register is to save the size
-CALL   GET_STRING  ;this function takes the user message and saves the string in size in DX  
+PUSH   CS           ; pushes CS into the stack
+POP    DS           ; pops DS out of the stack
+LEA    DI,str      ; DI register is to save offset address 
+MOV    DX,00FFH    ; DX register is to save the size
+CALL   GET_STRING  ; this function takes the user message and saves the string in size in DX  
 
 
 ; print message-output of a string at ds:dx
-LEA    dx,n_line
-MOV    ah,09h
-INT    21h                
+LEA    dx,n_line     ; save the effective address in dx register
+MOV    ah,09h        ; moves (09h) which has the message to AH resgister
+INT    21h           ; call the interrupt handler 0x21    
                                
 ; ---------------------------------------------------------------------Encryption--------------------------------------------------------------------------------------------
 LEA    bx, table1
