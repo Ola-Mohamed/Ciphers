@@ -348,4 +348,7 @@ parse endp
 
 exit:       
 
-
+; print new line -  output of a string at ds:dx
+LEA    dx,n_line
+MOV    ah,09h
+INT    21h  
