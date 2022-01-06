@@ -1,5 +1,3 @@
-  
-
 ******************************************************************************
  ;* File Name: chipers.asm
  ;*
@@ -14,9 +12,7 @@
 
 >>>>>>> main
 name "crypt"
-
 include 'emu8086.inc'
-
 org 100h 
   
 
@@ -84,21 +80,21 @@ enc_str     DB  256 DUP('$')                ;encrypted string
 dec_str     DB  256 DUP('$')                ;decrypted string   
 
 ;--------------------------------------------------------------------------------------------------------------------------------------------
-start:                                  ;start program
+start:                                      ;start program
 
 ; print a choose message-output of a string at ds:dx
-LEA   DX,msg4                          ;address msg4 with dx
-MOV   AH,09h                           ; Selecting the sub-function
-INT   21h                              ; Function that outputs a string at DS:DX. String must be terminated by '$'
+LEA   DX,msg4                               ;address msg4 with dx
+MOV   AH,09h                                ; Selecting the sub-function
+INT   21h                                   ; Function that outputs a string at DS:DX. String must be terminated by '$'
 
 
 ;read the string
 
-PUSH   CS                              ;push code segment from stack
-POP    DS                              ;pop data segment from stack
-LEA    DI,cho                          ;address cho with di
-MOV    DX,000FH                        ;exchange dx with 000FH
-CALL   GET_STRING                      ;call get string function
+PUSH   CS                                  ;push code segment from stack
+POP    DS                                   ;pop data segment from stack
+LEA    DI,cho                               ;address cho with di
+MOV    DX,000FH                             ;exchange dx with 000FH
+CALL   GET_STRING                           ;call get string function
 
 
 
@@ -215,8 +211,6 @@ INT    21h
 CALL start              
 
 ;---------------------------------------------------------------Monoalphapetic Cipher---------------------------------------------------------------
-	
-
 monoalphapetic:
 
            
@@ -239,9 +233,7 @@ CALL   GET_STRING  ;this function takes the user message and saves the string in
 LEA    dx,n_line
 MOV    ah,09h
 INT    21h                
-           
-                     
-                     
+                               
 ; ---------------------------------------------------------------------Encryption--------------------------------------------------------------------------------------------
 LEA    bx, table1
 LEA    si, str
@@ -342,10 +334,8 @@ end_of_string:
     MOV   [SI], '$'
    
 ret     
-
 parse endp         
            
-
 exit:       
 
 ; print new line -  output of a string at ds:dx
