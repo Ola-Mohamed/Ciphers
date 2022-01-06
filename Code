@@ -333,13 +333,13 @@ JE     skip
 	
 MOV   al, [si]
 CMP    al, 'a'
-	jb     skip
-	cmp    al, 'z'
-	ja     skip	
-	; xlat algorithm: al = ds:[bx + unsigned al] 
-	xlatb     ; encrypt using table2.  
-	MOV    [DI], AL
-	INC    DI  
+JB     skip
+CMP    al, 'z'
+JA     skip	
+; XLAT algorithm : al = ds:[bx + unsigned al] 
+XLATB                                                       ; encrypt using table2.  
+MOV    [DI], AL
+INC    DI  
 	
 skip:
 	INC    SI	
@@ -367,4 +367,4 @@ INT    21h
 
 DEFINE_GET_STRING     ; predefined macro in umu8086.inc to read a string input 
 
-end
+END
