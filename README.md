@@ -46,7 +46,7 @@ number according to the following table:
 
 > Our Team
 
-This Project was  created due to the efforts of all the team members and their indescribable hard work.
+This Project was  created due to the efforts of all the team members and their hard work.
 
 - Ola mohamed
 - Rana Osama
