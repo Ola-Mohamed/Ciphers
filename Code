@@ -311,9 +311,9 @@ CALL start
 ;             bx - table to use.
 
 
-;           'abcdefghijklmnopqrstvuwxyz'
 
-;table1:    'qwertyuiopasdfghjklzxcvbnm'
+
+
 
 ;table2:    'kbumcngphqrszyijadlewgbvft'  
 
