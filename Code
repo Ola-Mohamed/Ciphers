@@ -216,9 +216,9 @@ CALL start
 monoalphapetic:
 
            
-; print message-output of a string that the Ds:Dx segment:offset pair point to  
+; print message-output of a string that the DS:DX segment:offset pair point to  
 
-LEA    dx,msg1           ; save the effective address of msg1 in dx register (offset of the string)
+LEA    dx,msg1           ; save the effective address of msg1 in DX register (offset of the string)
 
 ;to print msg1
 
@@ -239,9 +239,10 @@ CALL   GET_STRING  ; procedure to get string from a user
 
 ; print new line
 
-LEA    dx,n_line     ; save the effective address of n_line in dx register (offset of the string)
+LEA    dx,n_line     ; save the effective address of n_line in DX register (offset of the string)
 MOV    ah,09h        ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
 INT    21h           ; interrupt 21h is called   
+
                                
 ; ---------------------------------------------------------------------Encryption--------------------------------------------------------------------------------------------
 LEA    bx, table1
