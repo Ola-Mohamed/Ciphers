@@ -357,6 +357,7 @@ LEA    dx,n_line    ;save the effective address of new line in dx register  (off
 MOV    ah,09h       ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
 INT    21h           ; interrupt 21h is called 
 
+;print message (5)-output of a string at ds:dx
 LEA    dx,msg5
 MOV    ah,09h
 INT    21h
