@@ -282,7 +282,7 @@ INT    21h                                                                   ; i
 ;print a string that the DS:DX segment:offset pair point to 
 
 LEA    DX, enc_str                                                         ; save the effective address of enc_str in DX register (offset of the string)
-MOV    AH, 09h         ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
+MOV    AH, 09h                                                             ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
 INT    21h                                                                 ; interrupt 21h is called to output the string 
 
 
@@ -332,10 +332,7 @@ CALL start
 
 
 
-
-
-
-
+;table1:    'qwertyuiopasdfghjklzxcvbnm'
 
 ;table2:    'kbumcngphqrszyijadlewgbvft'  
 
@@ -344,7 +341,8 @@ CALL start
 parse proc near    
     
 
-NEXTCHAR:
+nextchar:
+
 CMP    [si], '$'                                                       ; end of string?
 JE    end_of_string                                                    ;if Z=0  jmp to end_of_string
 CMP    [si], ' '
