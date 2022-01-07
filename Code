@@ -202,14 +202,15 @@ INT 21h                                                                 ;interru
 
 
 ; Displays decrypted message
-LEA DX, buffer+2
-MOV AH,9
-INT 21h        
+LEA DX, buffer+2                                                        ;load the effictive address of (buffer+2) into register DX
+MOV AH,9                                                                ;moving (9) into register AH
+INT 21h                                                                 ;interrup 21H is called to output a decripted mssage
 
 ; print message-output of a string at ds:dx
-LEA    dx,n_line
-MOV    ah,09h
-INT    21h 
+LEA    dx,n_line                                                        ;load the effictive address of n_line into register dx
+MOV    ah,09h                                                           ;moving the ah register with (09h)
+INT    21h                                                              ;intterrupt 21h is called to output a string
+
 
 ; print message-output of a string at ds:dx
 LEA    dx,n_line
