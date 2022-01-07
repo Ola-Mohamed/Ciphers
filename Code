@@ -331,10 +331,9 @@ INT    21h             						     ; interrupt 21h is called
 CALL start
 
 
+;table1:    'qwertyuiopasdfghjklzxcvbnm'
 
-								     ;table1:    'qwertyuiopasdfghjklzxcvbnm'
-
-								     ;table2:    'kbumcngphqrszyijadlewgbvft'  
+;table2:    'kbumcngphqrszyijadlewgbvft'  
 
 
 
