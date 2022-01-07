@@ -49,23 +49,23 @@ JMP start
 
 ;--------------------------------------------------------------------------------------------------------------------------------------------
 
-encrypt_msg db 0Dh,0Ah,"Enter a message to encrypt: $"     
+encrypt_msg DB 0Dh,0Ah,"Enter a message to encrypt: $"     
 
-encrypted_msg db 0Dh,0Ah,"The encrypted message is: $"
+encrypted_msg DB 0Dh,0Ah,"Encrypted message: $"
 
-decrypt_msg db 0Dh,0Ah,"The decrypted message is: $"
+decrypt_msg DB 0Dh,0Ah,"Decrypted message: $"
 
-buffer db 27,?,27 dup(' ')   
+buffer DB 27,?,27 dup(' ')   
             
 ;--------------------------------------------------------------------------------------------------------------------------------------------         
 
 ;                            'abcdefghijklmnopqrstvuwxyz'
 
-table1      db 97 dup (' '), 'klmnxyzabcopqrstvuwdefghij'                 ; store normal letters in table1 at size of 97 
+table1      DB 97 dup (' '), 'klmnxyzabcopqrstvuwdefghij'                 ; store normal letters in table1 at size of 97 
 
-table2      db 97 dup (' '), 'hijtuvwxyzabcdklmnoprqsefg'                 ; store code letters in table2 at size of 97
+table2      DB 97 dup (' '), 'hijtuvwxyzabcdklmnoprqsefg'                 ; store code letters in table2 at size of 97
 
-msg1        DB  0Dh,0Ah,'Enter the message: ', '$'                       ;store the enter message in msg1 
+msg1        DB  0Dh,0Ah,'Enter a message to encrypt: ', '$'                       ;store the enter message in msg1 
 
 msg2        DB  'Encrypted message: ', '$'                               ;store the encrepted  message in msg2 
 
@@ -85,10 +85,22 @@ str         DB  256 DUP('$')                                             ; buffe
 
 enc_str     DB  256 DUP('$')                                             ; encrypted string
 
-dec_str     DB  256 DUP('$')                                             ; decrypted string   
+dec_str     DB  256 DUP('$')                                             ; decrypted string 
+
+Welcome_msg DB  "WELCOME TO CIPHERS PROGRAM: '$'"                        ;welcome massage
 
 ;--------------------------------------------------------------------------------------------------------------------------------------------
 start:                                      ; start program
+
+
+LEA   DX,Welcome_msg                                                    ; address Welcome-msg with dx
+MOV   AH,09h                                                            ; Selecting the sub-function
+INT   21h       
+
+
+LEA  DX ,n_line                                                         ; address n_line with dx
+MOV  AH,09h                                                             ; Selecting the sub-function
+INT   21h
 
 ; print a choose message-output of a string at ds:dx
 LEA   DX,msg4                                                           ; address msg4 with dx
@@ -164,12 +176,12 @@ forspace:
 MOV [SI-1],AL                                                           ;moving the content of AL into [SI-1] "the offset of the SI-1"
 MOV AH,0                                                                ;load the AH register with 0
 CALL PRINT_NUM_UNS                                                      ; Using a procedure to print unsigne numbers in AX
+
 DEFINE_PRINT_NUM_UNS                                                    ;to declare the procedure  PRINT_NUM_UNS
 
 
 JMP NEXT_CHAR
-;space:  mov al,0h
-; jmp forspace
+
 end_msg:
 
 
@@ -207,14 +219,14 @@ MOV AH,9                                                                ;moving 
 INT 21h                                                                 ;interrup 21H is called to output a decripted mssage
 
 ; print message-output of a string at ds:dx
-LEA    dx,n_line                                                        ;load the effictive address of n_line into register dx
-MOV    ah,09h                                                           ;moving the ah register with (09h)
+LEA    DX,n_line                                                        ;load the effictive address of n_line into register dx
+MOV    AH,09h                                                           ;moving the ah register with (09h)
 INT    21h                                                              ;intterrupt 21h is called to output a string
 
 
 ; print message-output of a string at ds:dx
-LEA    dx,n_line                                                       ;load the effictive address of n_line into register dx
-MOV    ah,09h                                                          ;moving the ah register with (09h)
+LEA    DX,n_line                                                       ;load the effictive address of n_line into register dx
+MOV    AH,09h                                                          ;moving the ah register with (09h)
 INT    21h                                                             ;intterrupt 21h is called to output a string
 
 CALL start                                                             ; print a choose message-output of a string at ds:dx
@@ -228,8 +240,8 @@ monoalphapetic:
            
 ;print a string that the DS:DX segment:offset pair point to 
 
-LEA    dx,msg1                                                                 ; save the effective address of msg1 in DX register (offset of the string)
-MOV    ah,09h                                                                  ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts       
+LEA    DX,msg1                                                                 ; save the effective address of msg1 in DX register (offset of the string)
+MOV    AH,09h                                                                  ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts       
 INT    21h                                                                     ; interrupt 21h is called to output the string  
 
 
@@ -246,38 +258,38 @@ CALL   GET_STRING                                                              ;
 
 ;print new line
 
-LEA    dx,n_line                                                               ; save the effective address of n_line in DX register (offset of the string)
-MOV    ah,09h                                                                  ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
+LEA    DX,n_line                                                               ; save the effective address of n_line in DX register (offset of the string)
+MOV    AH,09h                                                                  ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
 INT    21h                                                                     ; interrupt 21h is called   
 
                                
 ; ---------------------------------------------------------------------Encryption--------------------------------------------------------------------------------------------
 
-LEA    bx, table1                                                             ; save the effective address of table1 in BX register
-LEA    si, str                                                                ; save the effective address of str in SI register
-LEA    di, enc_str                                                            ; save the effective address of enc_str in DI register
+LEA    BX, table1                                                             ; save the effective address of table1 in BX register
+LEA    SI, str                                                                ; save the effective address of str in SI register
+LEA    DI, enc_str                                                            ; save the effective address of enc_str in DI register
 
 CALL   parse   
 
                                           
 ;print a string that the DS:DX segment:offset pair point to 
 
-LEA    dx,msg2                                                               ; save the effective address of msg2 in DX register (offset of the string)
-MOV    ah,09h                                                                ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
+LEA    DX,msg2                                                               ; save the effective address of msg2 in DX register (offset of the string)
+MOV    AH,09h                                                                ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
 INT    21h                                                                   ; interrupt 21h is called to output the string 
  
  
 ;print a string that the DS:DX segment:offset pair point to 
 
-LEA    dx, enc_str     ; save the effective address of enc_str in DX register (offset of the string)
-MOV    ah, 09h         ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
-INT    21h             ; interrupt 21h is called to output the string 
+LEA    DX, enc_str                                                         ; save the effective address of enc_str in DX register (offset of the string)
+MOV    AH, 09h         ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
+INT    21h                                                                 ; interrupt 21h is called to output the string 
 
 
 ;print new line
 
-LEA    dx,n_line       ; save the effective address of n_line in DX register (offset of the string)
-MOV    ah,09h          ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
+LEA    DX,n_line       ; save the effective address of n_line in DX register (offset of the string)
+MOV    AH,09h          ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
 INT    21h             ; interrupt 21h is called
 
 ;------------------------------------------------------------------------Decryption-------------------------------------------------------------------------------------
