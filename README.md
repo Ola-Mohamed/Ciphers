@@ -65,9 +65,9 @@ Now if user choose `1` this will appear on screen  after encryption & decryption
 | 2-bug in storing tables of mononumeric cipher   |  Solved |
 | 3-bug of infinite loop        |  Solved |
 
-### Run Program 
+### Run Program Video
 
-![Watch](https://github.com/Ola-Mohamed/Ciphers/blob/main/resource/20-18-33.mp4)
+[ Watch This! ](https://github.com/Ola-Mohamed/Ciphers/blob/main/resource/20-18-33.mp4)
 ____________________________________________________________________________________
 ## Team Members & Work Timeline
  1. [Ola Mohamed](https://github.com/Ola-Mohamed)
@@ -79,28 +79,3 @@ ________________________________________________________________________________
 and here is a screenshot of the workflow using GitKraken software ...
 ![2](https://github.com/Ola-Mohamed/Ciphers/blob/main/resource/gitkraken1.png)
 ![3](https://github.com/Ola-Mohamed/Ciphers/blob/main/resource/git2.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
