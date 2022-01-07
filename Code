@@ -253,7 +253,7 @@ LEA    DI,str                                                                  ;
 MOV    DX,00FFH                                                                ; DX register is to save the buffer size
 
 CALL   GET_STRING                                                              ; procedure to get string from a user
-                                                                               ; the received string is written buffer at DS:DI , buffer size should be in DX
+                                                                               ; the received string is written to buffer at DS:DI , buffer size should be in DX
                                                                                ; procedure stops the input when 'Enter' is pressed 
 
 ;print new line
@@ -343,40 +343,39 @@ parse proc near
 
 nextchar:
 
-	cmp    [si], '$'         ; end of string?
+	cmp    [SI], '$'         ; end of string?
 	je     end_of_string     ; jump to end_of_string if ([si] == '$') 
 	
-	cmp    [si], ' '         ; space?
+	cmp    [SI], ' '         ; space?
 	je     skip              ; jump to skip if ([si] == ' ')
 	
-	mov    al, [si]          ; move one character (8 bits - one byte) from DS:SI to AL register
+	mov    AL, [SI]          ; move one character (8 bits - one byte) from DS:SI to AL register
 	
-	cmp    al, 'a'           
+	cmp    AL, 'a'           
 	jb     skip              ; jump to skip if (al < 'a')
 	
-	cmp    al, 'z'
+	cmp    AL, 'z'
 	ja     skip	         ; jump to skip if (al > 'z')
 	
 	               
 	xlatb          ; xlat algorithm: al = ds:[bx + unsigned al]   
 	               ; AL -holds index into table     
 		       ; BX -holds offset to base of table
-		       
-		       
-	                                              
+		                                                    
 	
-	mov    [di], al
-	inc    di  
+	mov    [DI], AL
+	inc    DI
 	
 
 skip:
-	inc    si	
+	inc    SI	
 	jmp    nextchar
 	
 
 end_of_string:
-    inc    si
-    mov    [si], '$'
+
+   	inc    SI
+    	mov    [SI], '$'
     
      
 ret     
