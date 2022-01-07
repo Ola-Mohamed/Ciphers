@@ -65,7 +65,9 @@ Now if user choose `1` this will appear on screen  after encryption & decryption
 | 2-bug in storing tables of mononumeric cipher   |  Solved |
 | 3-bug of infinite loop        |  Solved |
 
+### Run Program 
 
+[![Watch the video]((https://github.com/Ola-Mohamed/Ciphers/blob/main/resource/20-18-33.mp4/GIF)
 ____________________________________________________________________________________
 ## Team Members & Work Timeline
  1. [Ola Mohamed](https://github.com/Ola-Mohamed)
