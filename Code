@@ -342,18 +342,25 @@ parse proc near
     
 
 nextchar:
-	cmp    [si], '$'      ; end of string?
-	je     end_of_string
-	cmp    [si], ' '
-	je     skip
+
+	cmp    [si], '$'         ; end of string?
+	je     end_of_string     ; jump to end_of_string if ([si] == '$') 
 	
-	mov    al, [si]
-	cmp    al, 'a'
-	jb     skip
+	cmp    [si], ' '         ; space?
+	je     skip              ; jump to skip if ([si] == ' ')
+	
+	mov    al, [si]          ; move one character (8 bits - one byte) from DS:SI to AL register
+	
+	cmp    al, 'a'           
+	jb     skip              ; jump to skip if (al < 'a')
+	
 	cmp    al, 'z'
-	ja     skip	
-	; xlat algorithm: al = ds:[bx + unsigned al] 
-	xlatb     ; encrypt using table2.  
+	ja     skip	         ; jump to skip if (al > 'z')
+	
+	
+	xlatb                  
+	                                              
+	
 	mov    [di], al
 	inc    di  
 	
