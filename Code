@@ -333,14 +333,14 @@ parse proc near
     
 
 NEXTCHAR:
-CMP    [si], '$'      ; end of string?
-JE    end_of_string
+CMP    [si], '$'                                                       ; end of string?
+JE    end_of_string                                                    ;if Z=0  jmp to end_of_string
 CMP    [si], ' '
-JE     skip
+JE     skip                                                            ;if Z=0  jmp to skip
 	
-MOV   al, [si]
-CMP    al, 'a'
-JB     skip
+MOV   al, [si]                                                         ;moving [si] into register al
+CMP    al, 'a'                                                        
+JB     skip                                                            ;if content of al is below 'a' jmp to skip  char is not valid
 CMP    al, 'z'
 JA     skip	
 ; XLAT algorithm : al = ds:[bx + unsigned al] 
