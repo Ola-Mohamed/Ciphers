@@ -153,7 +153,7 @@ MOV buffer[BX+ 2],'$'                                                   ; put '$
 
 ; Displays "Encrypted message: " message
 LEA DX, encrypted_msg                                                   ;mov the effictive addres of the encrypted_msg to the register DX
-MOV AH,9                                                                ; moving (9) to the register AH
+MOV AH,9                                                                ; Selecting the sub-function
 INT 21h                                                                 ; interrupt 21h is called to output the string 
 
 ; The encryption code
