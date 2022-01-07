@@ -154,11 +154,11 @@ CMP [SI],'$'                                                            ; Check 
 JE end_msg                                                              ; if [SI] <'$'  will jmb to label end_msg
 
 LODSB ; Loads first char into AL, then moves SI to next char
-CMP AL,'a'
-JB NEXT_CHAR                                                          ; If char is invalid, skip it
-CMP AL,'z'
-JA NEXT_CHAR
-XLATB                                                                 ; Encrypt   
+CMP AL,'a'                                                              ;compare content of AL minus 'a'
+JB NEXT_CHAR                                                            ; If char is invalid, skip it
+CMP AL,'z'                                                              ;compare the content of AL minus 'z'
+JA NEXT_CHAR                                                            ;if AL > 'z' jmb to NEXT_CHAR ;; char is in valid
+XLATB                                                                   ; Encrypt   converts the content of AL into the encrepted number stored in a memory table 
 
 forspace:
 MOV [SI-1],AL
