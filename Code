@@ -188,17 +188,17 @@ CMP AL,1
 JB next_num                                                             ;if content of AL is BELOW 1 jmp to next_num
 
 CMP AL,26
-JA next_num
-XLATB                                                                 ; Decrypt
-MOV [SI-1],AL
-JMP next_num
+JA next_num                                                             ;IF content of AL is above 26 jmb to next_num
+XLATB                                                                   ; Decrypt 
 
+MOV [SI-1],AL                                                           ;moving the contant  of AL register into [SI-1]
+JMP next_num                     
 
 
 end_nums:
-LEA DX, decrypt_msg
-MOV AH,9
-INT 21h
+LEA DX, decrypt_msg                                                     ;load the effictive address od  decrypt_msg to register DX
+MOV AH,9                                                                ;moving (9) into register AH
+INT 21h                                                                 ;interrupt 21H  is called to output a string
 
 
 ; Displays decrypted message
