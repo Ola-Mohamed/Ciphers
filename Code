@@ -358,7 +358,7 @@ nextchar:
 	ja     skip	         ; jump to skip if (al > 'z')
 	
 	
-	xlatb                  
+	xlatb          ; xlat algorithm: al = ds:[bx + unsigned al]             
 	                                              
 	
 	mov    [di], al
