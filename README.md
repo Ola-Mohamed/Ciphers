@@ -1,5 +1,12 @@
 
 ## Ciphers Project
+
+
+### Quick start
+
+- in order to run the program you have to install `emu8086`
+- Clone the repo: https://github.com/Ola-Mohamed/Ciphers
+
 ____________________________________________________________________________________
  Security communication become more important today as a result increasing use of the electronic communication for many daily activities such as internet banking, online shopping.
 
