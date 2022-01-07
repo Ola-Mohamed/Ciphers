@@ -378,7 +378,7 @@ end_of_string:
     	mov    [SI], '$'
     
      
-ret     
+ret              ; To resume execution flow at the instruction following the call
 
 parse endp         
            
