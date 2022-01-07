@@ -67,7 +67,7 @@ Now if user choose `1` this will appear on screen  after encryption & decryption
 
 ### Run Program 
 
-![Watch the video](https://github.com/Ola-Mohamed/Ciphers/blob/main/resource/20-18-33.mp4/GIF)
+![Watch the video](https://github.com/Ola-Mohamed/Ciphers/blob/main/resource/20-18-33.mp4)
 ____________________________________________________________________________________
 ## Team Members & Work Timeline
  1. [Ola Mohamed](https://github.com/Ola-Mohamed)
