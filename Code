@@ -171,8 +171,8 @@ JB NEXT_CHAR                                                            ; If cha
 CMP AL,'z'                                                              ;compare the content of AL minus 'z'
 JA NEXT_CHAR                                                            ;if AL > 'z' jmb to NEXT_CHAR ;; char is in valid
 XLATB                                                                   ; Encrypt   converts the content of AL into the encrepted number stored in a memory table 
-
-forspace:
+ 
+ 
 MOV [SI-1],AL                                                           ;moving the content of AL into [SI-1] "the offset of the SI-1"
 MOV AH,0                                                                ;load the AH register with 0
 CALL PRINT_NUM_UNS                                                      ; Using a procedure to print unsigne numbers in AX
