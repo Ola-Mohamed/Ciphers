@@ -11,7 +11,7 @@ ________________________________________________________________________________
  Security communication become more important today as a result increasing use of the electronic communication for many daily activities such as internet banking, online shopping.
 
 To establish secure communication, Transmitted data must be encrypted to prevent attacking it using cipher algorithms.
-[image1]
+[image1](https://github.com/Ola-Mohamed/Ciphers/blob/main/resource/1.jpg)
 
 
 In our project transmitted data, be encrypted and decrypted using two of the most efficient and fastest software encryption algorithms ever (Mono Numeric MonoAlphabetic Cipher)
@@ -37,39 +37,28 @@ there are two-way to encryption :
 
 ____________________________________________________________________________________
 ## Project Phases
-[]image
+[image](https://github.com/Ola-Mohamed/Ciphers/blob/main/resource/Picture4.jpg)
 
 ____________________________________________________________________________________
 ## Implementation in Assembly
 We include `'emu8086.inc'` and CAll some Macros to reduce the code implemantation
 such as : `DEFINE_GET_STRING `  and   `DEFINE_PRINT_NUM_UNS ` ,also implemented a procuder Called `parse` 
-[image]
+[image](https://github.com/Ola-Mohamed/Ciphers/blob/main/resource/parse%20fun.png)
 
 
-####  The Program Flow Works As Follows, At Startup The Main Menu Will Be Displayed For The Customer Like That
-[1]
-so the user has three optionsto choose from them , 1 to use Monoalphaptic cipher ,2 to use Mononumric cipher and 3 to exit from program :
-[image]
+####  The Program Flow Works As Follows, At Startup The Main Menu Will Be Displayed For The user Like That
+[1](https://github.com/Ola-Mohamed/Ciphers/blob/main/resource/Picture3.png)
 
-Now if user choose `1` this will appear on screen :
-
-
-
-and this after encryption & decryption finished:
+Now if user choose `1` this will appear on screen  after encryption & decryption finished:
+[image](https://github.com/Ola-Mohamed/Ciphers/blob/main/resource/Picture2.png)
 
 
 
- if user choose` 2` this will appear on screen :
+ if user choose` 2` this will appear on screen  after encryption & decryption finished:
+[image](https://github.com/Ola-Mohamed/Ciphers/blob/main/resource/Picture1.png)
 
-
-
-and this after encryption & decryption finished:
-
-
- if user choose ` 3 `this will appear on screen :
  
- 
- 
+
 | Bug Description | status |
 | --- | --- |
 | 1- bug in take input from user | Solved |
@@ -86,8 +75,8 @@ ________________________________________________________________________________
  5. [Mariam Fathi](https://github.com/Mariam-Fathi)
  
 and here is a screenshot of the workflow using GitKraken software ...
-[]
-[]
+[](https://github.com/Ola-Mohamed/Ciphers/blob/main/resource/gitkraken1.png)
+[](https://github.com/Ola-Mohamed/Ciphers/blob/main/resource/git2.png)
 
 
 
