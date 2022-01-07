@@ -1,8 +1,4 @@
-# Ciphers
-This simple encryption program is made for the 8086 microprocessor.
-there are two-way to encryption :
-1- In the mono-numeric substitution encryption, each alphabetic letter is substituted by a
-number according to the following table:
+
 
 | Plain Text | Cipher Text | 
 |--|--|
