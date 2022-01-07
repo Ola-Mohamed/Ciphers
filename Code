@@ -140,18 +140,18 @@ MOV buffer[BX+ 2],'$'                                                   ; put '$
 
 
 ; Displays "Encrypted message: " message
-LEA DX, encrypted_msg
-MOV AH,9
-INT 21h
+LEA DX, encrypted_msg                                                   ;mov the effictive addres of the encrypted_msg to the register DX
+MOV AH,9                                                                ; moving (9) to the register AH
+INT 21h                                                                 ; interrupt 21h is called to output the string 
 
 ; The encryption code
-MOV DI,3FFh                                                           ; moving (3FFh) to the register DI
-MOV BX,DI                              
-LEA SI, buffer[2]     
+MOV DI,3FFh                                                             ; moving (3FFh) to the register DI
+MOV BX,DI                                                               ;moving the content of register DI (33fh) into register bx
+LEA SI, buffer[2]                                                       ;load the effictinve address of buffer[2] into register SI
 
 NEXT_CHAR:
-CMP [SI],'$'                                                          ; Check if reached end of message
-JE end_msg
+CMP [SI],'$'                                                            ; Check if reached end of message
+JE end_msg                                                              ; if [SI] <'$'  will jmb to label end_msg
 
 LODSB ; Loads first char into AL, then moves SI to next char
 CMP AL,'a'
