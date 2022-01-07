@@ -1,37 +1,29 @@
-# Ciphers
+
+## Ciphers Project
+
+
+### Quick start
+
+- in order to run the program you have to install `emu8086`
+- Clone the repo: https://github.com/Ola-Mohamed/Ciphers
+
+____________________________________________________________________________________
+ Security communication become more important today as a result increasing use of the electronic communication for many daily activities such as internet banking, online shopping.
+
+To establish secure communication, Transmitted data must be encrypted to prevent attacking it using cipher algorithms.
+[image1]
+
+
+In our project transmitted data, be encrypted and decrypted using two of the most efficient and fastest software encryption algorithms ever (Mono Numeric MonoAlphabetic Cipher)
+____________________________________________________________________________________
+
+## Project Description:
 This simple encryption program is made for the 8086 microprocessor.
 there are two-way to encryption :
-1- In the mono-numeric substitution encryption, each alphabetic letter is substituted by a
-number according to the following table:
-
-| Plain Text | Cipher Text | 
-|--|--|
-| a | 1 |
-| b | 2 |
-| c | 3 |
-| d | 4 |
-| e | 5 |
-| f | 6 |
-| g | 7 |
-| h | 8 |
-| i | 9 |
-| j | 10 |
-| k | 11 |
-| l | 12 |
-| m | 13 |
-| n | 14 |
-| o | 15 |
-| p | 16 |
-| q | 17 |
-| r | 18 |
-| s | 19 |
-| t | 20 |
-| u | 21 |
-| v | 22 |
-| w | 23 |
-| x | 24 |
-| y | 25 |
-| z | 26 |
+1- In the mono-numeric substitution encryption, each alphabetic letter is substituted by a number according to the following table:
+|Plain text  | a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z |
+|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
+|  Cipher text| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12| 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 |
 
 2- In the monoalphabetic substitution encryption, each alphabetic letter is substituted by another letter according to the following table:
 |Plain text  | a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z |
@@ -43,19 +35,59 @@ number according to the following table:
 2. Writing a program to encrypt the input message
 3. Decrypting the cipher text to obtain the original text message.
 
+____________________________________________________________________________________
+## Project Phases
+[]image
 
-> Our Team
-
-This Project was  created due to the efforts of all the team members and their hard work.
-
-- Ola mohamed
-- Rana Osama
-- Doha Khalid
-- Maryam Fathi
-- Yasmeen Atia
-
+____________________________________________________________________________________
+## Implementation in Assembly
+We include `'emu8086.inc'` and CAll some Macros to reduce the code implemantation
+such as : `DEFINE_GET_STRING `  and   `DEFINE_PRINT_NUM_UNS ` ,also implemented a procuder Called `parse` 
+[image]
 
 
+####  The Program Flow Works As Follows, At Startup The Main Menu Will Be Displayed For The Customer Like That
+[1]
+so the user has three optionsto choose from them , 1 to use Monoalphaptic cipher ,2 to use Mononumric cipher and 3 to exit from program :
+[image]
+
+Now if user choose `1` this will appear on screen :
+
+
+
+and this after encryption & decryption finished:
+
+
+
+ if user choose` 2` this will appear on screen :
+
+
+
+and this after encryption & decryption finished:
+
+
+ if user choose ` 3 `this will appear on screen :
+ 
+ 
+ 
+| Bug Description | status |
+| --- | --- |
+| 1- bug in take input from user | Solved |
+| 2-bug in storing tables of mononumeric cipher   |  Solved |
+| 3-bug of infinite loop        |  Solved |
+
+
+____________________________________________________________________________________
+## Team Members & Work Timeline
+ 1. [Ola Mohamed](https://github.com/Ola-Mohamed)
+ 2. [Rana Osama](https://github.com/RanaUsama20)
+ 3. [Yasmin Atyia](https://github.com/yasmin-attia)
+ 4. [Doha Khaled](https://github.com/dohakhaled33)
+ 5. [Mariam Fathi](https://github.com/Mariam-Fathi)
+ 
+and here is a screenshot of the workflow using GitKraken software ...
+[]
+[]
 
 
 
@@ -64,6 +96,15 @@ This Project was  created due to the efforts of all the team members and their h
 
 
 
+
+
+
+
+
+
+
+
+  
 
 
 

@@ -49,31 +49,33 @@ JMP start
 
 ;--------------------------------------------------------------------------------------------------------------------------------------------
 
-encrypt_msg db 0Dh,0Ah,"Enter a message to encrypt: $"     
+encrypt_msg DB 0Dh,0Ah,"Enter a message to encrypt: $"     
 
-encrypted_msg db 0Dh,0Ah,"The encrypted message is: $"
+encrypted_msg DB 0Dh,0Ah,"Encrypted message: $"
 
-decrypt_msg db 0Dh,0Ah,"The decrypted message is: $"
+decrypt_msg DB 0Dh,0Ah,"Decrypted message: $"
 
-buffer db 27,?,27 dup(' ')   
+buffer DB 27,?,27 dup(' ')   
             
 ;--------------------------------------------------------------------------------------------------------------------------------------------         
 
 ;                            'abcdefghijklmnopqrstvuwxyz'
 
-table1      db 97 dup (' '), 'klmnxyzabcopqrstvuwdefghij'                 ; store normal letters in table1 at size of 97 
+table1      DB 97 dup (' '), 'klmnxyzabcopqrstvuwdefghij'                 ; store normal letters in table1 at size of 97 
 
-table2      db 97 dup (' '), 'hijtuvwxyzabcdklmnoprqsefg'                 ; store code letters in table2 at size of 97
+table2      DB 97 dup (' '), 'hijtuvwxyzabcdklmnoprqsefg'                 ; store code letters in table2 at size of 97
 
-msg1        DB  0Dh,0Ah,'Enter the message: ', '$'      
+msg1        DB  0Dh,0Ah,'Enter a message to encrypt: ', '$'                       ;store the enter message in msg1 
 
-msg2        DB  'Encrypted message: ', '$'
+msg2        DB  'Encrypted message: ', '$'                               ;store the encrepted  message in msg2 
 
-msg3        DB  'Decrypted message: ', '$'
+msg3        DB  'Decrypted message: ', '$'                               ;store the decrepted  message in msg3 
 
-msg4        DB  'To Use Monoalphabetic Cipher Enter 1',0Dh,0Ah,'To Use Mononumeric Cipher Enter 2',0Dh,0Ah,'To End The Program Enter 3',0Dh,0Ah,'$'
 
-msg5        DB  'Thank You For Your Time  ', '$'
+msg4        DB  'To Use Monoalphabetic Cipher Enter 1',0Dh,0Ah,'To Use Mononumeric Cipher Enter 2',0Dh,0Ah,'To End The Program Enter 3',0Dh,0Ah,'$'              ;store the starting message in msg4 
+
+
+msg5        DB  'Thank You For Your Time  ', '$'                         ;store the thank message in msg5
 
 n_line      DB  0DH,0AH,'$'                                              ; for new line 
 
@@ -83,10 +85,22 @@ str         DB  256 DUP('$')                                             ; buffe
 
 enc_str     DB  256 DUP('$')                                             ; encrypted string
 
-dec_str     DB  256 DUP('$')                                             ; decrypted string   
+dec_str     DB  256 DUP('$')                                             ; decrypted string 
+
+Welcome_msg DB  "WELCOME TO CIPHERS PROGRAM: '$'"                        ;welcome massage
 
 ;--------------------------------------------------------------------------------------------------------------------------------------------
 start:                                      ; start program
+
+
+LEA   DX,Welcome_msg                                                    ; address Welcome-msg with dx
+MOV   AH,09h                                                            ; Selecting the sub-function
+INT   21h       
+
+
+LEA  DX ,n_line                                                         ; address n_line with dx
+MOV  AH,09h                                                             ; Selecting the sub-function
+INT   21h
 
 ; print a choose message-output of a string at ds:dx
 LEA   DX,msg4                                                           ; address msg4 with dx
@@ -130,88 +144,93 @@ mov AH,0Ah                                                             ; Sub-fun
 INT 21h                                                                ; Function that outputs a string at DS:DX. String must be terminated by '$'
 
 ; Puts $ at the end to be able to print it later
-MOV BX,0
-MOV BL, buffer[1]
-MOV buffer[BX+ 2],'$'
+MOV BX,0                                                                ;load the BX register with 0
+MOV BL, buffer[1]                                                       ;moving the content of buffer[1] into register BL
+MOV buffer[BX+ 2],'$'                                                   ; put '$' at the end of buffer to print it latter
 
 ;-------------------------------------------------------- Encrypting ------------------------------------------
 
 
 ; Displays "Encrypted message: " message
-LEA DX, encrypted_msg
-MOV AH,9
-INT 21h
+LEA DX, encrypted_msg                                                   ;mov the effictive addres of the encrypted_msg to the register DX
+MOV AH,9                                                                ; moving (9) to the register AH
+INT 21h                                                                 ; interrupt 21h is called to output the string 
 
 ; The encryption code
-MOV DI,3FFh                                                           ; moving (3FFh) to the register DI
-MOV BX,DI                              
-LEA SI, buffer[2]     
+MOV DI,3FFh                                                             ; moving (3FFh) to the register DI
+MOV BX,DI                                                               ;moving the content of register DI (33fh) into register bx
+LEA SI, buffer[2]                                                       ;load the effictinve address of buffer[2] into register SI
 
 NEXT_CHAR:
-CMP [SI],'$'                                                          ; Check if reached end of message
-JE end_msg
+CMP [SI],'$'                                                            ; Check if reached end of message
+JE end_msg                                                              ; if [SI] <'$'  will jmb to label end_msg
 
 LODSB ; Loads first char into AL, then moves SI to next char
-CMP AL,'a'
-JB NEXT_CHAR                                                          ; If char is invalid, skip it
-CMP AL,'z'
-JA NEXT_CHAR
-XLATB                                                                 ; Encrypt   
+CMP AL,'a'                                                              ;compare content of AL minus 'a'
+JB NEXT_CHAR                                                            ; If char is invalid, skip it
+CMP AL,'z'                                                              ;compare the content of AL minus 'z'
+JA NEXT_CHAR                                                            ;if AL > 'z' jmb to NEXT_CHAR ;; char is in valid
+XLATB                                                                   ; Encrypt   converts the content of AL into the encrepted number stored in a memory table 
 
 forspace:
-MOV [SI-1],AL
-MOV AH,0
-CALL PRINT_NUM_UNS ; Using a procedure to print numbers
-DEFINE_PRINT_NUM_UNS
+MOV [SI-1],AL                                                           ;moving the content of AL into [SI-1] "the offset of the SI-1"
+MOV AH,0                                                                ;load the AH register with 0
+CALL PRINT_NUM_UNS                                                      ; Using a procedure to print unsigne numbers in AX
+
+DEFINE_PRINT_NUM_UNS                                                    ;to declare the procedure  PRINT_NUM_UNS
+
 
 JMP NEXT_CHAR
-;space:  mov al,0h
-; jmp forspace
+
 end_msg:
 
 
 ; ------------------------------------------Decryption--------------------------------------------------------
-MOV BX,DI
-LEA SI, buffer[2]
+MOV BX,DI                                                               ;moving the content of DI into register BX
+LEA SI, buffer[2]                                                       ;load the effictive address of buffer[2] into  register SI
+
 
 next_num:
-CMP [SI],'$'
-JE end_nums
+CMP [SI],'$'                                                            ;compare  [SI]- '$'
+JE end_nums                                                             ;if z=o jmp to the end_nums
 
-LODSB                                                                 ; Loads byte from DS:SI to AL, then increments SI by 1
-CMP AL,1
 
-JB next_num
+LODSB                                                                   ; Loads byte from DS:SI to AL, then increments SI by 1
+CMP AL,1 
+JB next_num                                                             ;if content of AL is BELOW 1 jmp to next_num
+
 CMP AL,26
-JA next_num
-XLATB                                                                 ; Decrypt
-MOV [SI-1],AL
-JMP next_num
+JA next_num                                                             ;IF content of AL is above 26 jmb to next_num
+XLATB                                                                   ; Decrypt 
 
+MOV [SI-1],AL                                                           ;moving the contant  of AL register into [SI-1]
+JMP next_num                     
 
 
 end_nums:
-LEA DX, decrypt_msg
-MOV AH,9
-INT 21h
+LEA DX, decrypt_msg                                                     ;load the effictive address od  decrypt_msg to register DX
+MOV AH,9                                                                ;moving (9) into register AH
+INT 21h                                                                 ;interrupt 21H  is called to output a string
 
 
 ; Displays decrypted message
-LEA DX, buffer+2
-MOV AH,9
-INT 21h        
+LEA DX, buffer+2                                                        ;load the effictive address of (buffer+2) into register DX
+MOV AH,9                                                                ;moving (9) into register AH
+INT 21h                                                                 ;interrup 21H is called to output a decripted mssage
 
 ; print message-output of a string at ds:dx
-LEA    dx,n_line
-MOV    ah,09h
-INT    21h 
+LEA    DX,n_line                                                        ;load the effictive address of n_line into register dx
+MOV    AH,09h                                                           ;moving the ah register with (09h)
+INT    21h                                                              ;intterrupt 21h is called to output a string
+
 
 ; print message-output of a string at ds:dx
-LEA    dx,n_line
-MOV    ah,09h
-INT    21h
+LEA    DX,n_line                                                       ;load the effictive address of n_line into register dx
+MOV    AH,09h                                                          ;moving the ah register with (09h)
+INT    21h                                                             ;intterrupt 21h is called to output a string
 
-CALL start              
+CALL start                                                             ; print a choose message-output of a string at ds:dx
+
 
 ;---------------------------------------------------------------Monoalphapetic Cipher---------------------------------------------------------------
 
@@ -221,56 +240,56 @@ monoalphapetic:
            
 ;print a string that the DS:DX segment:offset pair point to 
 
-LEA    dx,msg1                                                                 ; save the effective address of msg1 in DX register (offset of the string)
-MOV    ah,09h                                                                  ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts       
+LEA    DX,msg1                                                                 ; save the effective address of msg1 in DX register (offset of the string)
+MOV    AH,09h                                                                  ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts       
 INT    21h                                                                     ; interrupt 21h is called to output the string  
 
 
 ;take the input from a user
 
-PUSH   CS                                                                     ; pushes CS (code segment) into the stack
-POP    DS                                                                     ; pops DS (data segment) out of the stack
-LEA    DI,str                                                                 ; DI register is to save offset address 
-MOV    DX,00FFH                                                               ; DX register is to save the buffer size
+PUSH   CS                                                                      ; pushes CS (code segment) into the stack
+POP    DS                                                                      ; pops DS (data segment) out of the stack
+LEA    DI,str                                                                  ; DI register is to save offset address 
+MOV    DX,00FFH                                                                ; DX register is to save the buffer size
 
-CALL   GET_STRING                                                             ; procedure to get string from a user
-                                                                              ; the received string is written buffer at DS:DI , buffer size should be in DX
-                                                                              ; procedure stops the input when 'Enter' is pressed 
+CALL   GET_STRING                                                              ; procedure to get string from a user
+                                                                               ; the received string is written buffer at DS:DI , buffer size should be in DX
+                                                                               ; procedure stops the input when 'Enter' is pressed 
 
 ;print new line
 
-LEA    dx,n_line                                                              ; save the effective address of n_line in DX register (offset of the string)
-MOV    ah,09h                                                                 ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
-INT    21h                                                                    ; interrupt 21h is called   
+LEA    DX,n_line                                                               ; save the effective address of n_line in DX register (offset of the string)
+MOV    AH,09h                                                                  ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
+INT    21h                                                                     ; interrupt 21h is called   
 
                                
 ; ---------------------------------------------------------------------Encryption--------------------------------------------------------------------------------------------
 
-LEA    bx, table1                                                             ; save the effective address of table1 in BX register
-LEA    si, str                                                                ; save the effective address of str in SI register
-LEA    di, enc_str                                                            ; save the effective address of enc_str in DI register
+LEA    BX, table1                                                             ; save the effective address of table1 in BX register
+LEA    SI, str                                                                ; save the effective address of str in SI register
+LEA    DI, enc_str                                                            ; save the effective address of enc_str in DI register
 
 CALL   parse   
 
                                           
 ;print a string that the DS:DX segment:offset pair point to 
 
-LEA    dx,msg2                                                               ; save the effective address of msg2 in DX register (offset of the string)
-MOV    ah,09h                                                                ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
+LEA    DX,msg2                                                               ; save the effective address of msg2 in DX register (offset of the string)
+MOV    AH,09h                                                                ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
 INT    21h                                                                   ; interrupt 21h is called to output the string 
  
  
 ;print a string that the DS:DX segment:offset pair point to 
 
-LEA    dx, enc_str     ; save the effective address of enc_str in DX register (offset of the string)
-MOV    ah, 09h         ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
-INT    21h             ; interrupt 21h is called to output the string 
+LEA    DX, enc_str                                                         ; save the effective address of enc_str in DX register (offset of the string)
+MOV    AH, 09h         ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
+INT    21h                                                                 ; interrupt 21h is called to output the string 
 
 
 ;print new line
 
-LEA    dx,n_line       ; save the effective address of n_line in DX register (offset of the string)
-MOV    ah,09h          ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
+LEA    DX,n_line       ; save the effective address of n_line in DX register (offset of the string)
+MOV    AH,09h          ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
 INT    21h             ; interrupt 21h is called
 
 ;------------------------------------------------------------------------Decryption-------------------------------------------------------------------------------------
@@ -326,14 +345,14 @@ parse proc near
     
 
 NEXTCHAR:
-CMP    [si], '$'      ; end of string?
-JE    end_of_string
+CMP    [si], '$'                                                       ; end of string?
+JE    end_of_string                                                    ;if Z=0  jmp to end_of_string
 CMP    [si], ' '
-JE     skip
+JE     skip                                                            ;if Z=0  jmp to skip
 	
-MOV   al, [si]
-CMP    al, 'a'
-JB     skip
+MOV   al, [si]                                                         ;moving [si] into register al
+CMP    al, 'a'                                                        
+JB     skip                                                            ;if content of al is below 'a' jmp to skip  char is not valid
 CMP    al, 'z'
 JA     skip	
 ; XLAT algorithm : al = ds:[bx + unsigned al] 
