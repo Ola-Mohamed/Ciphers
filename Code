@@ -213,11 +213,12 @@ INT    21h                                                              ;intterr
 
 
 ; print message-output of a string at ds:dx
-LEA    dx,n_line
-MOV    ah,09h
-INT    21h
+LEA    dx,n_line                                                       ;load the effictive address of n_line into register dx
+MOV    ah,09h                                                          ;moving the ah register with (09h)
+INT    21h                                                             ;intterrupt 21h is called to output a string
 
-CALL start              
+CALL start                                                             ; print a choose message-output of a string at ds:dx
+
 
 ;---------------------------------------------------------------Monoalphapetic Cipher---------------------------------------------------------------
 
@@ -234,20 +235,20 @@ INT    21h                                                                     ;
 
 ;take the input from a user
 
-PUSH   CS                                                                     ; pushes CS (code segment) into the stack
-POP    DS                                                                     ; pops DS (data segment) out of the stack
-LEA    DI,str                                                                 ; DI register is to save offset address 
-MOV    DX,00FFH                                                               ; DX register is to save the buffer size
+PUSH   CS                                                                      ; pushes CS (code segment) into the stack
+POP    DS                                                                      ; pops DS (data segment) out of the stack
+LEA    DI,str                                                                  ; DI register is to save offset address 
+MOV    DX,00FFH                                                                ; DX register is to save the buffer size
 
-CALL   GET_STRING                                                             ; procedure to get string from a user
-                                                                              ; the received string is written buffer at DS:DI , buffer size should be in DX
-                                                                              ; procedure stops the input when 'Enter' is pressed 
+CALL   GET_STRING                                                              ; procedure to get string from a user
+                                                                               ; the received string is written buffer at DS:DI , buffer size should be in DX
+                                                                               ; procedure stops the input when 'Enter' is pressed 
 
 ;print new line
 
-LEA    dx,n_line                                                              ; save the effective address of n_line in DX register (offset of the string)
-MOV    ah,09h                                                                 ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
-INT    21h                                                                    ; interrupt 21h is called   
+LEA    dx,n_line                                                               ; save the effective address of n_line in DX register (offset of the string)
+MOV    ah,09h                                                                  ; moving (09h) to the register ah to select sub-function 9 of the interrupt 21h DOS interrupts
+INT    21h                                                                     ; interrupt 21h is called   
 
                                
 ; ---------------------------------------------------------------------Encryption--------------------------------------------------------------------------------------------
