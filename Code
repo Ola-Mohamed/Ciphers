@@ -357,9 +357,12 @@ nextchar:
 	cmp    al, 'z'
 	ja     skip	         ; jump to skip if (al > 'z')
 	
-	
+	               
 	xlatb          ; xlat algorithm: al = ds:[bx + unsigned al]   
-	               ;AL -holds index into table   
+	               ; AL -holds index into table     
+		       ; BX -holds offset to base of table
+		       
+		       
 	                                              
 	
 	mov    [di], al
