@@ -144,40 +144,40 @@ mov AH,0Ah                                                             ; Sub-fun
 INT 21h                                                                ; Function that outputs a string at DS:DX. String must be terminated by '$'
 
 ; Puts $ at the end to be able to print it later
-MOV BX,0                                                                ;load the BX register with 0
-MOV BL, buffer[1]                                                       ;moving the content of buffer[1] into register BL
-MOV buffer[BX+ 2],'$'                                                   ; put '$' at the end of buffer to print it latter
+MOV BX,0                                                               ;load the BX register with 0
+MOV BL, buffer[1]                                                      ;moving the content of buffer[1] into register BL
+MOV buffer[BX+ 2],'$'                                                  ; put '$' at the end of buffer to print it latter
 
 ;-------------------------------------------------------- Encrypting ------------------------------------------
 
 
 ; Displays "Encrypted message: " message
-LEA DX, encrypted_msg                                                   ; mov the effictive addres of the encrypted_msg to the register DX
-MOV AH,9                                                                ; Selecting the sub-function
-INT 21h                                                                 ; interrupt 21h is called to output the string 
+LEA DX, encrypted_msg                                                  ; mov the effictive addres of the encrypted_msg to the register DX
+MOV AH,9                                                               ; Selecting the sub-function
+INT 21h                                                                ; interrupt 21h is called to output the string 
 
 ; The encryption code
-MOV DI,3FFh                                                             ; moving (3FFh) to the register DI
-MOV BX,DI                                                               ; moving the content of register DI (33fh) into register bx
-LEA SI, buffer[2]                                                       ; load the effictinve address of buffer[2] into register SI
+MOV DI,3FFh                                                            ; moving (3FFh) to the register DI
+MOV BX,DI                                                              ; moving the content of register DI (33fh) into register bx
+LEA SI, buffer[2]                                                      ; load the effictinve address of buffer[2] into register SI
 
 NEXT_CHAR:
-CMP [SI],'$'                                                            ; Check if reached end of message
-JE end_msg                                                              ; if [SI] <'$'  will jmb to label end_msg
+CMP [SI],'$'                                                           ; Check if reached end of message
+JE end_msg                                                             ; if [SI] <'$'  will jmb to label end_msg
 
-LODSB ; Loads first char into AL, then moves SI to next char
-CMP AL,'a'                                                              ; compare content of AL minus 'a'
-JB NEXT_CHAR                                                            ; If char is invalid, skip it
-CMP AL,'z'                                                              ; compare the content of AL minus 'z'
-JA NEXT_CHAR                                                            ; if AL > 'z' jmb to NEXT_CHAR ;; char is in valid
-XLATB                                                                   ; Encrypt   converts the content of AL into the encrepted number stored in a memory table 
+LODSB                                                                  ; Loads first char into AL, then moves SI to next char
+CMP AL,'a'                                                             ; compare content of AL minus 'a'
+JB NEXT_CHAR                                                           ; If char is invalid, skip it
+CMP AL,'z'                                                             ; compare the content of AL minus 'z'
+JA NEXT_CHAR                                                           ; if AL > 'z' jmb to NEXT_CHAR ;; char is in valid
+XLATB                                                                  ; Encrypt   converts the content of AL into the encrepted number stored in a memory table 
  
  
-MOV [SI-1],AL                                                           ; moving the content of AL into [SI-1] "the offset of the SI-1"
-MOV AH,0                                                                ; load the AH register with 0
-CALL PRINT_NUM_UNS                                                      ; Using a procedure to print unsigne numbers in AX
+MOV [SI-1],AL                                                          ; moving the content of AL into [SI-1] "the offset of the SI-1"
+MOV AH,0                                                               ; load the AH register with 0
+CALL PRINT_NUM_UNS                                                     ; Using a procedure to print unsigne numbers in AX
 
-DEFINE_PRINT_NUM_UNS                                                    ; to declare the procedure  PRINT_NUM_UNS
+DEFINE_PRINT_NUM_UNS                                                   ; to declare the procedure  PRINT_NUM_UNS
 
 
 JMP NEXT_CHAR
