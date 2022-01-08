@@ -214,20 +214,20 @@ INT 21h                                                                 ; interr
 
 
 ; Displays decrypted message
-LEA DX, buffer+2                                                        ;load the effictive address of (buffer+2) into register DX
+LEA DX, buffer+2                                                        ; load the effictive address of (buffer+2) into register DX
 MOV AH,9                                                                ; Selecting the sub-function
-INT 21h                                                                 ;interrup 21H is called to output a decripted mssage
+INT 21h                                                                 ; interrup 21H is called to output a decripted mssage
 
 ; print message-output of a string at ds:dx
-LEA    DX,n_line                                                        ;load the effictive address of n_line into register dx
+LEA    DX,n_line                                                        ; load the effictive address of n_line into register dx
 MOV    AH,09h                                                           ; Selecting the sub-function
-INT    21h                                                              ;intterrupt 21h is called to output a string
+INT    21h                                                              ; intterrupt 21h is called to output a string
 
 
 ; print message-output of a string at ds:dx
-LEA    DX,n_line                                                       ;load the effictive address of n_line into register dx
+LEA    DX,n_line                                                       ; load the effictive address of n_line into register dx
 MOV    AH,09h                                                          ; Selecting the sub-function
-INT    21h                                                             ;intterrupt 21h is called to output a string
+INT    21h                                                             ; intterrupt 21h is called to output a string
 
 CALL start                                                             ; print a choose message-output of a string at ds:dx
 
@@ -337,7 +337,7 @@ CALL start
 
 
 
-parse proc near                  				   ;Define parse procedure
+parse proc near                  				   ; Define parse procedure
     
 
 nextchar:
