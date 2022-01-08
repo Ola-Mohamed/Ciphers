@@ -90,7 +90,7 @@ dec_str     DB  256 DUP('$')                                             ; decry
 Welcome_msg DB  "WELCOME TO CIPHERS PROGRAM: '$'"                        ; welcome massage
 
 ;--------------------------------------------------------------------------------------------------------------------------------------------
-start:                                      ; start program
+start:                                                                  ; start program
 
 
 LEA   DX,Welcome_msg                                                    ; address Welcome-msg with dx
@@ -152,32 +152,32 @@ MOV buffer[BX+ 2],'$'                                                   ; put '$
 
 
 ; Displays "Encrypted message: " message
-LEA DX, encrypted_msg                                                   ;mov the effictive addres of the encrypted_msg to the register DX
+LEA DX, encrypted_msg                                                   ; mov the effictive addres of the encrypted_msg to the register DX
 MOV AH,9                                                                ; Selecting the sub-function
 INT 21h                                                                 ; interrupt 21h is called to output the string 
 
 ; The encryption code
 MOV DI,3FFh                                                             ; moving (3FFh) to the register DI
-MOV BX,DI                                                               ;moving the content of register DI (33fh) into register bx
-LEA SI, buffer[2]                                                       ;load the effictinve address of buffer[2] into register SI
+MOV BX,DI                                                               ; moving the content of register DI (33fh) into register bx
+LEA SI, buffer[2]                                                       ; load the effictinve address of buffer[2] into register SI
 
 NEXT_CHAR:
 CMP [SI],'$'                                                            ; Check if reached end of message
 JE end_msg                                                              ; if [SI] <'$'  will jmb to label end_msg
 
 LODSB ; Loads first char into AL, then moves SI to next char
-CMP AL,'a'                                                              ;compare content of AL minus 'a'
+CMP AL,'a'                                                              ; compare content of AL minus 'a'
 JB NEXT_CHAR                                                            ; If char is invalid, skip it
-CMP AL,'z'                                                              ;compare the content of AL minus 'z'
-JA NEXT_CHAR                                                            ;if AL > 'z' jmb to NEXT_CHAR ;; char is in valid
+CMP AL,'z'                                                              ; compare the content of AL minus 'z'
+JA NEXT_CHAR                                                            ; if AL > 'z' jmb to NEXT_CHAR ;; char is in valid
 XLATB                                                                   ; Encrypt   converts the content of AL into the encrepted number stored in a memory table 
  
  
-MOV [SI-1],AL                                                           ;moving the content of AL into [SI-1] "the offset of the SI-1"
-MOV AH,0                                                                ;load the AH register with 0
+MOV [SI-1],AL                                                           ; moving the content of AL into [SI-1] "the offset of the SI-1"
+MOV AH,0                                                                ; load the AH register with 0
 CALL PRINT_NUM_UNS                                                      ; Using a procedure to print unsigne numbers in AX
 
-DEFINE_PRINT_NUM_UNS                                                    ;to declare the procedure  PRINT_NUM_UNS
+DEFINE_PRINT_NUM_UNS                                                    ; to declare the procedure  PRINT_NUM_UNS
 
 
 JMP NEXT_CHAR
@@ -186,31 +186,31 @@ end_msg:
 
 
 ; ------------------------------------------Decryption--------------------------------------------------------
-MOV BX,DI                                                               ;moving the content of DI into register BX
-LEA SI, buffer[2]                                                       ;load the effictive address of buffer[2] into  register SI
+MOV BX,DI                                                               ; moving the content of DI into register BX
+LEA SI, buffer[2]                                                       ; load the effictive address of buffer[2] into  register SI
 
 
 next_num:
-CMP [SI],'$'                                                            ;compare  [SI]- '$'
-JE end_nums                                                             ;reach the end of the message                                                           
+CMP [SI],'$'                                                            ; compare  [SI]- '$'
+JE end_nums                                                             ; reach the end of the message                                                           
 
 
 LODSB                                                                   ; Loads byte from DS:SI to AL, then increments SI by 1
 CMP AL,1 
-JB next_num                                                             ;if content of AL is BELOW 1 jmp to next_num
+JB next_num                                                             ; if content of AL is BELOW 1 jmp to next_num
 
 CMP AL,26
-JA next_num                                                             ;IF content of AL is above 26 jmb to next_num
+JA next_num                                                             ; IF content of AL is above 26 jmb to next_num
 XLATB                                                                   ; Decrypt 
 
-MOV [SI-1],AL                                                           ;moving the contant  of AL register into [SI-1]
+MOV [SI-1],AL                                                           ; moving the contant  of AL register into [SI-1]
 JMP next_num                     
 
 
 end_nums:
-LEA DX, decrypt_msg                                                     ;load the effictive address od  decrypt_msg to register DX
+LEA DX, decrypt_msg                                                     ; load the effictive address od  decrypt_msg to register DX
 MOV AH,9                                                                ; Selecting the sub-function
-INT 21h                                                                 ;interrupt 21H  is called to output a string 
+INT 21h                                                                 ; interrupt 21H  is called to output a string 
 
 
 ; Displays decrypted message
