@@ -72,7 +72,7 @@ msg2        DB  'Encrypted message: ', '$'                                 ; sto
 msg3        DB  'Decrypted message: ', '$'                                 ; store the decrepted  message in msg3 
 
 
-msg4        DB  'To Use Monoalphabetic Cipher Enter 1',0Dh,0Ah,'To Use Mononumeric Cipher Enter 2',0Dh,0Ah,'To End The Program Enter 3',0Dh,0Ah,'$'              ;store the starting message in msg4 
+msg4        DB  'To Use Monoalphabetic Cipher Enter 1',0Dh,0Ah,'To Use Mononumeric Cipher Enter 2',0Dh,0Ah,'To End The Program Enter 3',0Dh,0Ah,'$'              ; store the starting message in msg4 
 
 
 msg5        DB  'Thank You For Your Time  ', '$'                         ; store the thank message in msg5
@@ -87,7 +87,7 @@ enc_str     DB  256 DUP('$')                                             ; encry
 
 dec_str     DB  256 DUP('$')                                             ; decrypted string 
 
-Welcome_msg DB  "WELCOME TO CIPHERS PROGRAM: '$'"                        ;welcome massage
+Welcome_msg DB  "WELCOME TO CIPHERS PROGRAM: '$'"                        ; welcome massage
 
 ;--------------------------------------------------------------------------------------------------------------------------------------------
 start:                                      ; start program
